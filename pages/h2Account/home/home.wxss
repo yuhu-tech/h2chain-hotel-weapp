@@ -1,0 +1,34 @@
+/* pages/h2Account/home/home.wxss */
+
+.info_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 200rpx;
+  padding: 30rpx;
+  background-color: #f8f8f8;
+  box-sizing: border-box;
+}
+
+.avatar {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 50%;
+}
+
+.wux-whitespace {
+  background-color: #f8f8f8;
+}
+
+.logout {
+  margin-top: 50rpx;
+  text-align: center;
+}
+
+.wux-cell-group__bd:after {
+  border: solid 0rpx #f8f8f8 !important;
+}
+
+.bd_btm {
+  border-bottom: solid 1rpx #ececec;
+}

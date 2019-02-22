@@ -1,0 +1,38 @@
+<!--pages/h2Account/login/login.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title"></view>
+    <view class="page__desc"></view>
+  </view>
+  <view class="page__bd">
+    <wux-white-space body-style='height:50rpx' />
+    <wux-row>
+      <view class='text_title'>欢迎来到 H2Chain</view>
+      <view class='text_tip n200'>请输入密码和账号来登陆系统</view>
+    </wux-row>
+    <wux-white-space body-style='height:100rpx' />
+    <wux-row>
+      <view class='text_tip n200'>请输入您的账号</view>
+      <wux-input clear />
+    </wux-row>
+    <wux-white-space body-style='height:50rpx' />
+    <wux-row>
+      <view class='text_tip n200'>请输入您的密码</view>
+      <wux-input password clear />
+    </wux-row>
+    <wux-white-space body-style='height:80rpx' />
+    <wux-row>
+      <wux-button type='main'>
+        <view class='btn_login'>
+          <text>登录</text>
+          <text>→</text>
+        </view>
+      </wux-button>
+    </wux-row>
+    <wux-white-space body-style='height:80rpx' />
+    <wux-row>
+      <view class='n200'>忘记密码？</view>
+      <view class='y200'>请联系客服</view>
+    </wux-row>
+  </view>
+</view>

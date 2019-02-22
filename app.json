@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/h2Account/home/home",
+    "pages/h2Account/login/login",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/h2Account/test/test"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "H2Chain Hotel",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "backgroundColor": "#fef9ed",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/h2Account/login/login"
+      },
+      {
+        "pagePath": "pages/h2Account/home/home"
+      }
+    ],
+    "usingComponents": {
+      "tabbar": "custom-tab-bar"
+    }
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

@@ -1,0 +1,12 @@
+/* pages/h2Account/login/login.wxss */
+
+page {
+  padding: 0rpx 40rpx;
+}
+
+.btn_login {
+  width: 350rpx;
+  padding: 0rpx 20rpx;
+  display: flex;
+  justify-content: space-between;
+}

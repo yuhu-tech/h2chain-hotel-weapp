@@ -1,0 +1,42 @@
+/**app.wxss**/
+@import 'miniprogram_npm/wux-weapp/styles/index.wxss';
+
+page {
+  box-sizing: border-box;
+}
+
+.y200 {
+  color: #ffb342;
+}
+
+.y100 {
+  color: #fef9ed;
+}
+
+.n200 {
+  color: #c8c8c8;
+}
+
+.text_title {
+  font-size: 20pt;
+}
+
+.text_tip {
+  font-size: 14pt;
+}
+
+/* ----------wux---------- */
+
+.wux-input {
+  border-bottom: solid 1rpx #c8c8c8;
+}
+
+.wux-button--main {
+  background-color: #ffb342 !important;
+  color: #fff !important;
+}
+
+.wux-button--main.wux-button--hover {
+  background-color: #cca100 !important;
+  color: #fff !important;
+}
