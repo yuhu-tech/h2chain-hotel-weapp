@@ -1,10 +1,14 @@
 {
   "pages": [
-    "pages/h2Account/home/home",
-    "pages/h2Account/login/login",
+    "pages/h2-account/home/home",
+    "pages/h2-order/history-order-detail/history-order-detail",
+    "pages/h2-order/history-order/history-order",
+    "pages/h2-order/new-order/new-order",
+    "pages/h2-account/login/login",
+    "pages/h2-account/change-password/change-password",
+    "pages/h2-account/hotel-info/hotel-info",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/h2Account/test/test"
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -18,15 +22,12 @@
     "borderStyle": "white",
     "list": [
       {
-        "pagePath": "pages/h2Account/login/login"
+        "pagePath": "pages/h2-account/login/login"
       },
       {
-        "pagePath": "pages/h2Account/home/home"
+        "pagePath": "pages/h2-account/home/home"
       }
-    ],
-    "usingComponents": {
-      "tabbar": "custom-tab-bar"
-    }
+    ]
   },
   "networkTimeout": {
     "request": 10000,

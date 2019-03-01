@@ -12,21 +12,21 @@ Component({
     color: "#979795",
     selectedColor: "#ffb342",
     list: [{
-        pagePath: "/pages/h2Account/login/login",
-        iconPath: "icon/icon_home.png",
-        selectedIconPath: "icon/icon_home_HL.png",
+        pagePath: "/pages/h2-account/login/login",
+        iconPath: "icon/tab-order.png",
+        selectedIconPath: "icon/tab-order-light.png",
         text: "订单列表"
       },
       {
-        pagePath: "/pages/h2Account/test/test",
-        iconPath: "icon/add.png",
+        pagePath: "/pages/h2-order/new-order/new-order",
+        iconPath: "icon/tab-add.png",
         isSpecial: true,
         text: "发布订单"
       },
       {
-        pagePath: "/pages/h2Account/home/home",
-        iconPath: "icon/icon_mine.png",
-        selectedIconPath: "icon/icon_mine_HL.png",
+        pagePath: "/pages/h2-account/home/home",
+        iconPath: "icon/tab-home.png",
+        selectedIconPath: "icon/tab-home-light.png",
         text: "个人中心"
       }
     ]

@@ -40,3 +40,7 @@ page {
   background-color: #cca100 !important;
   color: #fff !important;
 }
+
+.input-placeholder {
+  color: #c8c8c8;
+}

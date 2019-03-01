@@ -10,19 +10,17 @@
       <view class='text_title'>欢迎来到 H2Chain</view>
       <view class='text_tip n200'>请输入密码和账号来登陆系统</view>
     </wux-row>
-    <wux-white-space body-style='height:100rpx' />
+    <wux-white-space body-style='height:150rpx' />
     <wux-row>
-      <view class='text_tip n200'>请输入您的账号</view>
-      <wux-input clear />
-    </wux-row>
-    <wux-white-space body-style='height:50rpx' />
-    <wux-row>
-      <view class='text_tip n200'>请输入您的密码</view>
-      <wux-input password clear />
+      <wux-input clear placeholder='请输入您的账号' onchange="iptUsername" />
     </wux-row>
     <wux-white-space body-style='height:80rpx' />
     <wux-row>
-      <wux-button type='main'>
+      <wux-input password clear placeholder='请输入您的密码' onchange="iptPassword" />
+    </wux-row>
+    <wux-white-space body-style='height:80rpx' />
+    <wux-row>
+      <wux-button type='main' open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">
         <view class='btn_login'>
           <text>登录</text>
           <text>→</text>

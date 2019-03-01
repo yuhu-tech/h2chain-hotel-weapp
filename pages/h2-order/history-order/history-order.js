@@ -1,16 +1,24 @@
-// pages/h2Account/login/login.js
+// pages/h2-order/history-order/history-order.js
+import {
+  $wuxCalendar
+} from '../../../miniprogram_npm/wux-weapp/index.js'
 
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    value_date: [],
+    order_list: [{}, {}, {}, {}]
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function(options) {
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -23,12 +31,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (typeof this.getTabBar === 'function' &&
-      this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 0
-      })
-    }
+
   },
 
   /**
@@ -64,5 +67,17 @@ Page({
    */
   onShareAppMessage: function() {
 
-  }
+  },
+
+  openCalendar_date() {
+    $wuxCalendar('#calendar_date').open({
+      value: this.data.value_date,
+      onChange: (values, displayValues) => {
+        console.log('onChange', values, displayValues)
+        this.setData({
+          value_date: displayValues,
+        })
+      },
+    })
+  },
 })

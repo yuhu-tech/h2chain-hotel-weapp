@@ -1,0 +1,49 @@
+/* pages/h2-order/history-order/history-order.wxss */
+
+page {
+  padding: 30rpx;
+  background-color: #f8f8f8;
+}
+
+.btn_top {
+  height: 70rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #c8c8c8;
+  background-color: #ececec;
+}
+
+button::after {
+  border: none;
+}
+
+.arrow {
+  margin-top: 30rpx;
+}
+
+image {
+  border-radius: 10%;
+}
+
+.wux-card__extra {
+  font-size: 10pt !important;
+}
+
+.card_count {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card_count_l {
+  display: flex;
+}
+
+.link {
+  display: flex;
+}
+
+.link_arrow {
+  margin-top: 3rpx;
+  margin-left: 30rpx;
+}

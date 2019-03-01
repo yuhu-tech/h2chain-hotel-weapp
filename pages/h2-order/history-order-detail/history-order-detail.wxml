@@ -1,0 +1,6 @@
+<!--pages/h2-order/history-order-detail/history-order-detail.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    here is detail
+  </view>
+</view>
