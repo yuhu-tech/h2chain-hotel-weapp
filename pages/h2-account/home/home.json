@@ -1,9 +1,10 @@
 {
   "usingComponents": {
     "wux-row": "wux-weapp/row",
-    "wux-col": "wux-weapp/col",
     "wux-white-space": "wux-weapp/white-space",
     "wux-cell-group": "wux-weapp/cell-group",
-    "wux-cell": "wux-weapp/cell"
+    "wux-cell": "wux-weapp/cell",
+    "wux-skeleton": "wux-weapp/skeleton",
+    "wux-skeleton-paragraph": "wux-weapp/skeleton-paragraph"
   }
 }

@@ -5,22 +5,19 @@ page {
   background-color: #f8f8f8;
 }
 
-.btn_top {
-  height: 70rpx;
+/* picker */
+
+.picker {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #c8c8c8;
   background-color: #ececec;
+  border-radius: 10rpx;
+  padding: 0 30rpx;
 }
 
-button::after {
-  border: none;
-}
-
-.arrow {
-  margin-top: 30rpx;
-}
+/* card */
 
 image {
   border-radius: 10%;
@@ -35,8 +32,8 @@ image {
   justify-content: space-between;
 }
 
-.card_count_l {
-  display: flex;
+.card_count_isSex {
+  margin-right: 30rpx;
 }
 
 .link {
@@ -46,4 +43,33 @@ image {
 .link_arrow {
   margin-top: 3rpx;
   margin-left: 30rpx;
+}
+
+.foot {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.wux-divider--text-right:before {
+  width: 100% !important;
+}
+
+.wux-divider--text-right:after {
+  width: 100% !important;
+}
+
+/* card-foot */
+
+.wux-card {
+  padding: 0 !important;
+}
+
+.wux-card__bd {
+  border-bottom: solid 1rpx rgba(217, 217, 217, 0.5);
+  padding: 30rpx !important;
+}
+
+.wux-card__ft {
+  padding: 30rpx !important;
 }

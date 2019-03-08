@@ -1,0 +1,92 @@
+<!--pages/h2-order/list-order-detail/list-order-detail.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <wux-row>
+      <view class='top_card'>
+        <view>{{order_info.job}}</view>
+        <wux-white-space body-style="height:10rpx" />
+        <view class='top_card_cen'>
+          <view>
+            <text>{{order_info.date}}</text>
+            <text class='blank'>{{order_info.period}}</text>
+          </view>
+          <view wx:if="{{order_info.isSex===0}}">
+            <text>{{order_info.pt_count_yet}}/{{order_info.pt_count}}</text>
+          </view>
+          <view wx:else>
+            <text>{{order_info.pt_count_male_yet}}/{{order_info.pt_count_male}} 男</text>
+            <text class='blank'>{{order_info.pt_count_female_yet}}/{{order_info.pt_count_female}} 女</text>
+          </view>
+        </view>
+        <wux-white-space body-style="height:10rpx" />
+        <view class='top_card_btm text_min'>
+          <text>{{order_info.company}}</text>
+          <text class='top_card_btm_name'>{{order_info.consultant}}</text>
+          <view class='top_card_btm_phone'>
+            <image class='img_phone' src='/images/order-phone.png' />
+            <text class='y200' bindtap='doCall'>立刻联系</text>
+          </view>
+        </view>
+        <view class='top_card_btn'>
+          <wux-button type='main' bind:click="goModifyOrder">修改订单</wux-button>
+          <wux-button type='main' bind:click="doCloseOrder" >关闭订单</wux-button>
+        </view>
+      </view>
+    </wux-row>
+    <wux-row>
+      <view class='search n200'>
+        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='search'>
+        <view class='arrow'>
+          <wux-icon type='md-arrow-dropdown' />
+        </view>
+        </input>
+      </view>
+    </wux-row>
+    <view class='divider_n'>
+      <wux-divider position="right" text="已确认" />
+    </view>
+    <block wx:for="{{pt_list_confirm}}" wx:key="">
+      <wux-row>
+        <view class='list' bindtap='goPtInfo'>
+          <view class='list_card'>
+            <view class='list_card_l'>
+              <image class='list_card_avatar' src='/images/pic.jpg' />
+              <view class='list_card_name'>{{item.name}}</view>
+              <view>{{item.gender}}</view>
+            </view>
+            <view class='list_card_r n200'>
+              <view class='text_min'>{{item.nickName}}</view>
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+          <wux-white-space body-style="height:30rpx" />
+        </view>
+      </wux-row>
+    </block>
+    <view class='divider_r'>
+      <wux-divider position="right" text="待确认" />
+    </view>
+    <block wx:for="{{pt_list_notConfirm}}" wx:key="">
+      <wux-row>
+        <view class='list' bindtap='goPtInfo'>
+          <view class='list_card'>
+            <view class='list_card_l'>
+              <image class='list_card_avatar' src='/images/pic.jpg' />
+              <view class='list_card_name'>{{item.name}}</view>
+              <view>{{item.gender}}</view>
+            </view>
+            <view class='list_card_r n200'>
+              <view class='text_min'>{{item.nickName}}</view>
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+          <wux-white-space body-style="height:30rpx" />
+        </view>
+      </wux-row>
+    </block>
+  </view>
+</view>

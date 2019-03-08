@@ -1,4 +1,6 @@
 <!--pages/h2Account/login/login.wxml-->
+<wux-toptips id="wux-toptips" />
+
 <view class="page">
   <view class="page__hd">
     <view class="page__title"></view>
@@ -12,15 +14,15 @@
     </wux-row>
     <wux-white-space body-style='height:150rpx' />
     <wux-row>
-      <wux-input clear placeholder='请输入您的账号' onchange="iptUsername" />
+      <wux-input clear controlled value="{{email}}" placeholder='请输入您的账号' bind:change="iptEmail" bind:clear="clearEmail" />
     </wux-row>
     <wux-white-space body-style='height:80rpx' />
     <wux-row>
-      <wux-input password clear placeholder='请输入您的密码' onchange="iptPassword" />
+      <wux-input password clear placeholder='请输入您的密码' bind:change="iptPassword" bind:clear="clearPassword" bind:confirm="doLogin" />
     </wux-row>
     <wux-white-space body-style='height:80rpx' />
     <wux-row>
-      <wux-button type='main' open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">
+      <wux-button type='main' bind:click="doLogin">
         <view class='btn_login'>
           <text>登录</text>
           <text>→</text>
@@ -30,7 +32,9 @@
     <wux-white-space body-style='height:80rpx' />
     <wux-row>
       <view class='n200'>忘记密码？</view>
-      <view class='y200'>请联系客服</view>
+      <view class='y200'>
+        <text bindtap='doCall'>请联系客服</text>
+      </view>
     </wux-row>
   </view>
 </view>

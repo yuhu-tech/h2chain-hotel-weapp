@@ -1,4 +1,8 @@
 // pages/h2Account/login/login.js
+var gql = require('../../../utils/graphql.js')
+import {
+  $wuxToptips
+} from 'wux-weapp/index.js'
 
 Page({
 
@@ -6,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    username: '',
+    email: '',
     password: ''
   },
 
@@ -28,12 +32,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (typeof this.getTabBar === 'function' &&
-      this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 0
-      })
-    }
+    wx.getStorage({
+      key: 'email',
+      success: res => {
+        this.setData({
+          email: res.data
+        })
+      },
+    })
   },
 
   /**
@@ -71,9 +77,21 @@ Page({
 
   },
 
-  iptUsername: function(e) {
+  doCall: function() {
+    wx.makePhoneCall({
+      phoneNumber: '1234567890',
+    })
+  },
+
+  iptEmail: function(e) {
     this.setData({
-      username: e.detail.value
+      email: e.detail.value
+    })
+  },
+
+  clearEmail: function(e) {
+    this.setData({
+      email: ''
     })
   },
 
@@ -83,26 +101,81 @@ Page({
     })
   },
 
-  bindGetUserInfo: function(e) {
-    wx.login({
-      success: (res) => {
-        console.log(res)
+  clearPassword: function(e) {
+    this.setData({
+      password: ''
+    })
+  },
+
+  showToptips(message) {
+    $wuxToptips().error({
+      icon: 'cancel',
+      hidden: false,
+      text: message,
+      duration: 3000,
+      success() {},
+    })
+  },
+
+  doLogin: function(e) {
+    if (!this.data.email) {
+      this.showToptips('请输入您的账号')
+      return
+    }
+    if (!this.data.password) {
+      this.showToptips('请输入您的密码')
+      return
+    }
+    wx.showToast({
+      title: '正在登录',
+      icon: 'loading',
+      duration: 10000
+    })
+    gql.mutate({
+      mutation: `mutation {
+        login(
+          email: "${this.data.email}"
+          password: "${this.data.password}"
+        ) {
+          token
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      wx.showToast({
+        title: '登录成功',
+        icon: 'success'
+      })
+      try {
+        wx.setStorageSync('email', this.data.email)
+        wx.setStorageSync('token', res.login.token)
+      } catch (err) {
+        console.log('setStorage failed')
+        console.log(err)
       }
-    })
-    wx.getUserInfo({
-      success: (res) => {
-        console.log(res)
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            wx.switchTab({
+              url: '/pages/h2-order/list-order/list-order',
+            })
+          } else {
+            wx.navigateTo({
+              url: '/pages/h2-account/auth/auth',
+            })
+          }
+        }
+      })
+    }).catch((error) => {
+      console.log('fail', error);
+      if (error.errors[0].message === 'Invalid password') {
+        this.showToptips('密码不正确！')
+      } else if (error.errors[0].message === "Cannot read property 'password' of undefined") {
+        this.showToptips('账户不正确！')
+      } else {
+        this.showToptips('登录失败')
       }
-    })
-    wx.checkSession({
-      success: (res) => {
-        console.log(res)
-      }
-    })
-    wx.getStorageInfo({
-      success: (res) => {
-        console.log(res)
-      },
-    })
-  }
+    });
+  },
+
 })

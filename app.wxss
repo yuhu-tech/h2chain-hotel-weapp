@@ -3,18 +3,23 @@
 
 page {
   box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .y200 {
-  color: #ffb342;
+  color: #d7a646;
 }
 
 .y100 {
-  color: #fef9ed;
+  color: #dcc494;
 }
 
 .n200 {
   color: #c8c8c8;
+}
+
+.r200 {
+  color: #ff482c;
 }
 
 .text_title {
@@ -25,6 +30,10 @@ page {
   font-size: 14pt;
 }
 
+.text_min {
+  font-size: 11pt;
+}
+
 /* ----------wux---------- */
 
 .wux-input {
@@ -32,7 +41,7 @@ page {
 }
 
 .wux-button--main {
-  background-color: #ffb342 !important;
+  background-color: #d7a646 !important;
   color: #fff !important;
 }
 

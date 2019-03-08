@@ -1,0 +1,84 @@
+<!--pages/h2-order/modify-order/modify-order.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view class='disabled_label'>招募职位</view>
+      <wux-cell title="服务员" disabled></wux-cell>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view class='disabled_label'>用人日期</view>
+      <wux-cell title="2019-9-9" disabled></wux-cell>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view>开始时间</view>
+      <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+        <view class='select_picker'>
+          <view wx:if="{{time}}">{{time}}</view>
+          <view wx:else class='n200'>请选择</view>
+          <view class='access'></view>
+        </view>
+      </picker>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view>用人时长</view>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class='select_picker'>
+          <view wx:if="{{index>=0}}">{{array[index]}}</view>
+          <view wx:else class='n200'>请选择</view>
+          <view class='access'></view>
+        </view>
+      </picker>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select_radio'>
+      <view class='select_radio_label'>性别自定义</view>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{items}}" wx:key="">
+          <radio value="{{item.value}}" checked="{{item.checked}}" color='#ffb342' />{{item.name}}
+        </label>
+      </radio-group>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view wx:if="{{isSex==1}}">
+      <view class='select'>
+        <view>男</view>
+        <wux-cell>
+          <wux-input type='number' placeholder='请输入' />
+        </wux-cell>
+      </view>
+      <wux-white-space body-style='height:30rpx' />
+      <view class='select'>
+        <view>女</view>
+        <wux-cell>
+          <wux-input type='number' placeholder='请输入' />
+        </wux-cell>
+      </view>
+    </view>
+    <view wx:else class='select'>
+      <view>用人人数</view>
+      <wux-cell>
+        <wux-input type='number' placeholder='请输入' />
+      </wux-cell>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select_radio'>
+      <view class='select_radio_label disabled_label'>选择顾问</view>
+      <view class='radio-group disabled_radio'>
+        <view class='radio-group-name'>
+          <text>王凯</text>
+          <image src='/images/order-phone.png' />
+        </view>
+        <view>中海人力资源公司</view>
+      </view>
+    </view>
+    <wux-white-space body-style='height:50rpx' />
+    <view class='btn'>
+      <wux-button type='main'>发布</wux-button>
+    </view>
+    <wux-white-space body-style='height:50rpx' />
+  </view>
+</view>

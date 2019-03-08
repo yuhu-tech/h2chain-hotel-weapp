@@ -1,25 +1,36 @@
 <!--pages/h2-order/new-order/new-order.wxml-->
-<wux-select id="select_job" />
-<wux-calendar id="calendar_date" />
+<wux-toptips id="wux-toptips" />
 
 <view class="page">
   <view class="page__bd">
     <wux-white-space body-style='height:30rpx' />
     <view class='select'>
       <view>招募职位</view>
-      <wux-cell title="{{title_job?title_job:'请选择'}}" bind:click="onClick_job" isLink class="{{title_job?'':'placeholder'}}"></wux-cell>
+      <picker bindchange="bindPickerChangeJob" value="{{value_job}}" range="{{jobArray}}">
+        <view class='select_picker'>
+          <view wx:if="{{value_job}}">{{value_job}}</view>
+          <view wx:else class='n200'>请选择</view>
+          <view class='access'></view>
+        </view>
+      </picker>
     </view>
     <wux-white-space body-style='height:30rpx' />
     <view class='select'>
       <view>用人日期</view>
-      <wux-cell title="{{value_date.length>0?value_date:'请选择'}}" bind:click="openCalendar_date" isLink class="{{value_date.length>0?'':'placeholder'}}"></wux-cell>
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class='select_picker'>
+          <view wx:if="{{value_date}}">{{value_date}}</view>
+          <view wx:else class='n200'>请选择</view>
+          <view class='access'></view>
+        </view>
+      </picker>
     </view>
     <wux-white-space body-style='height:30rpx' />
     <view class='select'>
       <view>开始时间</view>
-      <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{multiIndex}}" range="{{multiArray}}">
         <view class='select_picker'>
-          <view wx:if="{{time}}">{{time}}</view>
+          <view wx:if="{{value_start}}">{{value_start}}</view>
           <view wx:else class='n200'>请选择</view>
           <view class='access'></view>
         </view>
@@ -28,9 +39,9 @@
     <wux-white-space body-style='height:30rpx' />
     <view class='select'>
       <view>用人时长</view>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <picker bindchange="bindPickerChange" value="{{value_period}}" range="{{periodArray}}">
         <view class='select_picker'>
-          <view wx:if="{{index>=0}}">{{array[index]}}</view>
+          <view wx:if="{{value_period}}">{{value_period}}</view>
           <view wx:else class='n200'>请选择</view>
           <view class='access'></view>
         </view>
@@ -50,40 +61,40 @@
       <view class='select'>
         <view>男</view>
         <wux-cell>
-          <wux-input type='number' placeholder='请输入' />
+          <wux-input type='number' placeholder='请输入' bind:change="iptPtCountMale" />
         </wux-cell>
       </view>
       <wux-white-space body-style='height:30rpx' />
       <view class='select'>
         <view>女</view>
         <wux-cell>
-          <wux-input type='number' placeholder='请输入' />
+          <wux-input type='number' placeholder='请输入' bind:change="iptPtCountFemale" />
         </wux-cell>
       </view>
     </view>
     <view wx:else class='select'>
       <view>用人人数</view>
       <wux-cell>
-        <wux-input type='number' placeholder='请输入' />
+        <wux-input type='number' placeholder='请输入' bind:change="iptPtCount" />
       </wux-cell>
     </view>
     <wux-white-space body-style='height:30rpx' />
     <view class='select_radio'>
       <view class='select_radio_label'>选择顾问</view>
       <radio-group class="radio-group" bindchange="radioChangeCons">
-        <label class="radio" wx:for="{{cons}}" wx:key="">
+        <label class="radio" wx:for="{{consultant_list}}" wx:key="">
           <view class="radio_col">
-            <radio value="{{item.value}}" checked="{{item.checked}}" color='#ffb342'>{{item.name}}</radio>
-            <image src='/images/order-phone.png'></image>
+            <radio value="{{item.name}}" color='#ffb342'>{{item.name}}</radio>
+            <image src='/images/order-phone.png' bindtap='doCall' data-phone="{{item.phone}}" />
           </view>
-          <view class='radio_tip'>中海人力资源公司</view>
+          <view class='radio_tip'>{{item.company}}</view>
           <wux-white-space body-style='height:30rpx' />
         </label>
       </radio-group>
     </view>
     <wux-white-space body-style='height:50rpx' />
     <view class='btn'>
-      <wux-button type='main'>发布</wux-button>
+      <wux-button type='main' bind:click="doPublish">发布</wux-button>
     </view>
     <wux-white-space body-style='height:50rpx' />
   </view>

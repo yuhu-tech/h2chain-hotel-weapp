@@ -1,15 +1,22 @@
 // pages/h2-account/hotel-info/hotel-info.js
+var gql = require('../../../utils/graphql.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      '/images/banner.jpeg',
-      '/images/banner2.jpeg',
-      '/images/banner3.jpeg',
-    ],
+    hotelInfo: {
+      banner: ['/images/banner.jpeg',
+        '/images/banner2.jpeg',
+        '/images/banner3.jpeg'
+      ],
+      hotel_name: '希尔顿酒店',
+      location: '青岛市黄岛区嘉陵江东路1号',
+      hotel_phone: '0532-123456789',
+      intro: '这里是很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多的酒店简介'
+    }
   },
 
   /**
@@ -30,7 +37,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    gql.query({
+      query: `query {
+        me(
+          email: "${this.data.email}"
+        ) {
+          banner,
+          hotel_name,
+          location,
+          hotel_phone,
+          intro
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      this.setData({
+        qlInfo: res
+      })
+    }).catch((error) => {
+      console.log('fail', error);
+    });
   },
 
   /**

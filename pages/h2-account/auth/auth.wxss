@@ -1,0 +1,12 @@
+/* pages/h2-account/auth/auth.wxss */
+
+page, .page, .page_bd {
+  height: 100%;
+}
+
+.page_bd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -200rpx;
+}

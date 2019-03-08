@@ -8,11 +8,11 @@ Component({
   data: {
     isIphoneX: app.globalData.systemInfo.model.includes("iPhone X"),
     selected: 2,
-    backgroundColor: "#fef9ed",
+    backgroundColor: "#fff",
     color: "#979795",
-    selectedColor: "#ffb342",
+    selectedColor: "#d7a646",
     list: [{
-        pagePath: "/pages/h2-account/login/login",
+        pagePath: "/pages/h2-order/list-order/list-order",
         iconPath: "icon/tab-order.png",
         selectedIconPath: "icon/tab-order-light.png",
         text: "订单列表"

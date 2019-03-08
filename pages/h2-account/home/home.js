@@ -1,11 +1,19 @@
 // pages/h2Account/home/home.js
+var gql = require('../../../utils/graphql.js')
 
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    userInfo: {},
+    qlInfo: {
+      phone: 1234567890,
+      hotel_name: '希尔顿酒店',
+      job: 'HR'
+    },
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -28,6 +36,44 @@ Page({
       this.getTabBar().setData({
         selected: 2
       })
+    }
+    wx.getUserInfo({
+      success: res => {
+        console.log(res)
+        this.setData({
+          userInfo: res.userInfo
+        })
+      }
+    })
+    /* ql */
+    try {
+      let email = wx.getStorageSync('email')
+      if (email) {
+        /* gql.mutate({
+              mutation: `mutation {
+                me(
+                  email: "${this.data.email}"
+                ) {
+                  phone,
+                  hotel_name,
+                  job
+                }
+              }`
+            }).then((res) => {
+              console.log('success', res);
+              this.setData({
+                qlInfo: res
+              })
+            }).catch((error) => {
+              console.log('fail', error);
+            }); */
+      }
+    } catch (e) {
+      wx.showToast({
+        title: '获取账号失败',
+        icon: 'none'
+      })
+      console.log(e)
     }
   },
 
@@ -64,6 +110,20 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  doLogout: function() {
+    wx.showModal({
+      title: '确认退出账号？',
+      success: res => {
+        if (res.confirm) {
+          wx.clearStorage()
+          wx.reLaunch({
+            url: '/pages/h2-account/login/login',
+          })
+        }
+      }
+    })
   }
 
 })

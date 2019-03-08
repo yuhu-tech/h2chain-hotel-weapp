@@ -1,7 +1,5 @@
 // pages/h2-order/history-order/history-order.js
-import {
-  $wuxCalendar
-} from '../../../miniprogram_npm/wux-weapp/index.js'
+var gql = require('../../../utils/graphql.js')
 
 Page({
 
@@ -9,8 +7,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    value_date: [],
-    order_list: [{}, {}, {}, {}]
+    date: '',
+    order_list: [{
+      job: '服务员',
+      company: '海润人力资源公司',
+      consultant: '水君',
+      date: '2019-12-29',
+      period: '10:00～14:00',
+      isSex: 0,
+      pt_count: 10,
+      pt_count_yet: 5,
+      pt_count_male: 10,
+      pt_count_male_yet: 5,
+      pt_count_female: 10,
+      pt_count_female_yet: 5
+    }, {
+      job: '服务员',
+      company: '海润人力资源公司',
+      consultant: '水君',
+      date: '2019-12-29',
+      period: '10:00～14:00',
+      isSex: 1,
+      pt_count: 10,
+      pt_count_yet: 5,
+      pt_count_male: 10,
+      pt_count_male_yet: 5,
+      pt_count_female: 10,
+      pt_count_female_yet: 5
+    }, ]
   },
 
   /**
@@ -69,15 +93,43 @@ Page({
 
   },
 
-  openCalendar_date() {
-    $wuxCalendar('#calendar_date').open({
-      value: this.data.value_date,
-      onChange: (values, displayValues) => {
-        console.log('onChange', values, displayValues)
-        this.setData({
-          value_date: displayValues,
-        })
-      },
+  bindDateChange(e) {
+    this.setData({
+      date: e.detail.value
     })
+    gql.query({
+      query: `query {
+        order_list(
+          date: "${this.data.date}"
+        ) {
+          order {
+            id,
+            job,
+            company,
+            consultant,
+            date,
+            period,
+            isSex,
+            pt_count,
+            pt_count_yet,
+            pt_count_male,
+            pt_count_male_yet,
+            pt_count_female,
+            pt_count_female_yet,
+          }
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+    }).catch((error) => {
+      console.log('fail', error);
+    });
   },
+
+  goDetail: function() {
+    wx.navigateTo({
+      url: '/pages/h2-order/history-order-detail/history-order-detail',
+    })
+  }
+
 })

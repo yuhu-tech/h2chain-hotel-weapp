@@ -1,6 +1,59 @@
 <!--pages/h2-order/history-order-detail/history-order-detail.wxml-->
 <view class='page'>
   <view class='page_bd'>
-    here is detail
+    <wux-row>
+      <view class='top_card'>
+        <view>服务员</view>
+        <wux-white-space body-style="height:10rpx" />
+        <view class='top_card_cen'>
+          <view>
+            <text>2019/1/9</text>
+            <text class='blank'>10:00~14:00</text>
+          </view>
+          <view>
+            <text>5/5 男</text>
+            <text class='blank'>5/5 女</text>
+          </view>
+        </view>
+        <wux-white-space body-style="height:10rpx" />
+        <view class='top_card_btm text_min'>
+          <text>海润人力资源公司</text>
+          <text class='top_card_btm_name'>周林</text>
+          <view class='top_card_btm_phone' bindtap='doCall'>
+            <image class='img_phone' src='/images/order-phone.png' />
+            <text class='y200'>立刻联系</text>
+          </view>
+        </view>
+      </view>
+    </wux-row>
+    <wux-row>
+      <view class='search n200'>
+        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='search'>
+        <view class='arrow'>
+          <wux-icon type='md-arrow-dropdown' />
+        </view>
+        </input>
+      </view>
+    </wux-row>
+    <block wx:for="{{pt_list}}" wx:key="">
+      <wux-row>
+        <view class='list' bindtap='goPtInfo'>
+          <view class='list_card'>
+            <view class='list_card_l'>
+              <image class='list_card_avatar' src='/images/pic.jpg' />
+              <view class='list_card_name'>姓名</view>
+              <view>女</view>
+            </view>
+            <view class='list_card_r n200'>
+              <view class='text_min'>这里显示微信昵称</view>
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+          <wux-white-space body-style="height:30rpx" />
+        </view>
+      </wux-row>
+    </block>
   </view>
 </view>

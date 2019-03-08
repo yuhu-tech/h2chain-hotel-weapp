@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "wux-white-space": "wux-weapp/white-space",
+    "wux-icon": "wux-weapp/icon",
+    "wux-row": "wux-weapp/row"
+  }
 }

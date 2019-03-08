@@ -4,41 +4,46 @@
 <view class='page'>
   <view class='page_bd'>
     <wux-row>
-      <button class='btn_top' bindtap='openCalendar_date'>
-        <view></view>
-        <view>{{value_date.length>0?value_date:'选择用工日期'}}</view>
-        <view class='arrow'>
-          <wux-icon type='md-arrow-dropdown' />
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class='picker'>
+          <view></view>
+          <view>{{date?date:'选择用工日期'}}</view>
+          <view class='arrow'>
+            <wux-icon type='md-arrow-dropdown' />
+          </view>
         </view>
-      </button>
+      </picker>
     </wux-row>
     <block wx:for="{{order_list}}" wx:key="">
       <wux-white-space body-style="height:30rpx" />
-      <wux-row>
-        <wux-card title="服务员" extra="海润人力资源公司 水君" bordered="{{false}}" thumb="/images/pic.jpg">
+      <view bindtap='goDetail'>
+        <wux-card title="{{item.job}}" extra="{{item.company}} {{item.consultant}}" bordered="{{false}}" thumb="/images/pic.jpg">
           <view slot="body">
             <view class='n200'>用工时间</view>
             <wux-white-space body-style="height:10rpx" />
-            <view>2019-12-29 10:00～14:00</view>
+            <view>{{item.date}} {{item.period}}</view>
             <wux-white-space body-style="height:30rpx" />
             <view class='n200'>用工人数</view>
             <wux-white-space body-style="height:10rpx" />
             <view class='card_count'>
-              <view class='card_count_l'>
-                <view>男 10/20</view>
-                <view>女 4/2</view>
+              <view wx:if="{{item.isSex===0}}">
+                <text>{{item.pt_count_yet}}/{{item.pt_count}}</text>
               </view>
-              <navigator url='/pages/h2-order/history-order-detail/history-order-detail'>
-                <view class='y200 link'>订单详情
-                  <view class='link_arrow'>
-                    <wux-icon type="ios-arrow-forward" size='20' />
-                  </view>
-                </view>
-              </navigator>
+              <view wx:else>
+                <text class='card_count_isSex'>男 {{item.pt_count_male_yet}}/{{item.pt_count_male}}</text>
+                <text>女 {{item.pt_count_female_yet}}/{{item.pt_count_female}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='foot' slot="footer">
+            <view class='y200 link'>订单详情
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
             </view>
           </view>
         </wux-card>
-      </wux-row>
+      </view>
     </block>
   </view>
 </view>

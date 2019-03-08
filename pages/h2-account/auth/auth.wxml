@@ -1,0 +1,6 @@
+<!--pages/h2-account/auth/auth.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <wux-button type='main' open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">微信授权以获取操作消息推送</wux-button>
+  </view>
+</view>
