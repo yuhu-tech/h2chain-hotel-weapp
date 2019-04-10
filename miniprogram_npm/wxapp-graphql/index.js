@@ -17,87 +17,83 @@ var responseHandler = function(resolve, reject, res, errorHandler) {
             errorHandler(res.data);
         }
     }
-}
+    }
 
-var GraphQL = function(obj, retObj) {
+    var GraphQL = function (obj, retObj) {
 
-    if (!obj.url) {
+      if (!obj.url) {
         throw "请提供GraphQL请求URL(.url)"
-    }
+      }
 
-    retObj = retObj || false;
+      retObj = retObj || false;
 
-    let header = {};
+      let header = undefined;
 
-    if (typeof obj.header === 'function') {
-      header = obj.header();
-    }
+      if (typeof obj.header != 'function' && typeof obj.header != 'object') {
+        throw 'header必须是function或者object'
+      }
 
-    if (typeof obj.header === 'object') {
-      header = obj.header;
-    }
-
-    if(retObj) {
+      if (retObj) {
         return {
-            query: function(queryObj) {
-                return new Promise(function(resolve, reject) {
-                    wx.request({
-                        url: obj.url,
-                        method: 'POST',
-                        data: JSON.stringify({
-                            query: queryObj.query,
-                            variables: queryObj.variables
-                        }),
-                        header: queryObj.header || header,
-                        complete: function(res) {
-                            responseHandler(resolve, reject, res,obj.errorHandler);
-                        }
-                    });
-                });
-            },
-
-            mutate: function(mutateObj) {
-                return new Promise(function(resolve, reject) {
-                    wx.request({
-                        url: obj.url,
-                        method: 'POST',
-                        data: JSON.stringify({
-                            query: mutateObj.mutation,
-                            variables: mutateObj.variables
-                        }),
-                        header: mutateObj.header || header,
-                        complete: function(res) {
-                            responseHandler(resolve, reject, res);
-                        }
-                    });
-                });
-            }
-        }
-    } else {
-        return function (_obj) {
-
-            if (!_obj.body) {
-                throw "请提供GraphQL请求body"
-            }
-
-            return wx.request({
+          query: function (queryObj) {
+            return new Promise(function (resolve, reject) {
+              wx.request({
                 url: obj.url,
                 method: 'POST',
-                data: JSON.stringify(_obj.body),
-                success: _obj.success,
-                fail: _obj.fail,
-                header: _obj.header || header,
-                complete: _obj.complete
+                data: JSON.stringify({
+                  query: queryObj.query,
+                  variables: queryObj.variables
+                }),
+                header: queryObj.header || (typeof obj.header === 'function' ? obj.header() : obj.header),
+                complete: function (res) {
+                  responseHandler(resolve, reject, res, obj.errorHandler);
+                }
+              });
             });
+          },
+
+          mutate: function (mutateObj) {
+            return new Promise(function (resolve, reject) {
+              wx.request({
+                url: obj.url,
+                method: 'POST',
+                data: JSON.stringify({
+                  query: mutateObj.mutation,
+                  variables: mutateObj.variables
+                }),
+                header: mutateObj.header || (typeof obj.header === 'function' ? obj.header() : obj.header),
+                complete: function (res) {
+                  responseHandler(resolve, reject, res);
+                }
+              });
+            });
+          }
         }
+      } else {
+        return function (_obj) {
+
+          if (!_obj.body) {
+            throw "请提供GraphQL请求body"
+          }
+
+          return wx.request({
+            url: obj.url,
+            method: 'POST',
+            data: JSON.stringify(_obj.body),
+            success: _obj.success,
+            fail: _obj.fail,
+            header: _obj.header || (typeof obj.header === 'function' ? obj.header() : obj.header),
+            complete: _obj.complete
+          });
+        }
+      }
     }
-}
 
-module.exports = {
-    GraphQL: GraphQL
-}
+    module.exports = {
+      GraphQL: GraphQL
+    }
 
-}, function(modId) {var map = {}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1551702904211);
+  }, function (modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
+  return __REQUIRE__(1552617112607);
 })()
 //# sourceMappingURL=index.js.map

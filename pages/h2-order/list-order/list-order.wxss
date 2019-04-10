@@ -2,7 +2,12 @@
 
 page {
   padding: 30rpx 30rpx 150rpx;
+  height: 100%;
   background-color: #f8f8f8;
+}
+
+.page {
+  height: 100%;
 }
 
 /* picker */
@@ -25,11 +30,6 @@ image {
 
 .wux-card__extra {
   font-size: 10pt !important;
-}
-
-.card_count {
-  display: flex;
-  justify-content: space-between;
 }
 
 .card_count_isSex {
@@ -82,4 +82,44 @@ image {
 
 .wux-card__ft {
   padding: 30rpx !important;
+}
+
+/* none */
+
+.none, .none_top, .none_btm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.none {
+  height: 100%;
+  justify-content: space-between;
+}
+
+.none_top image {
+  height: 300rpx;
+  width: 300rpx;
+}
+
+.access {
+  height: 30rpx;
+  width: 30rpx;
+  border-width: 4rpx 4rpx 0 0;
+  border-style: solid;
+  transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);
+  margin-right: 4rpx;
+}
+
+.access_top {
+  margin-top: 20rpx;
+  margin-bottom: -15rpx;
+}
+
+/* modified */
+
+.card_line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

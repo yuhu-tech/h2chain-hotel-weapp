@@ -1,13 +1,11 @@
-// pages/h2-account/hotel-info/hotel-info.js
-var gql = require('../../../utils/graphql.js')
-
+// pages/h2-order/prompt-success/prompt-success.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    hotelInfo: ''
+
   },
 
   /**
@@ -28,30 +26,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    gql.query({
-      query: `query {
-        me{
-          profile{
-            cover
-            name
-            address
-            phone
-            introduction
-          }
-        }
-      }`
-    }).then((res) => {
-      console.log('success', res);
-      this.setData({
-        hotelInfo: res.me.profile
+    setTimeout(() => {
+      wx.switchTab({
+        url: '/pages/h2-order/list-order/list-order',
       })
-    }).catch((error) => {
-      console.log('fail', error);
-      wx.showToast({
-        title: '加载失败',
-        icon: 'none'
-      })
-    });
+    }, 5000)
   },
 
   /**
@@ -85,7 +64,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(res) {
 
   },
+
+  goBack: function() {
+    wx.switchTab({
+      url: '/pages/h2-order/list-order/list-order',
+    })
+  }
+
 })

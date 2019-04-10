@@ -1,5 +1,6 @@
 // pages/h2-order/list-order-detail/list-order-detail.js
 var gql = require('../../../utils/graphql.js')
+var util = require('../../../utils/util.js')
 
 Page({
 
@@ -7,22 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order_info: {
-      id: '1',
-      job: '服务员',
-      date: '2019/1/9',
-      period: '10:00～14:00',
-      isSex: 0,
-      pt_count: 10,
-      pt_count_yet: 5,
-      pt_count_male: 10,
-      pt_count_male_yet: 5,
-      pt_count_female: 10,
-      pt_count_female_yet: 5,
-      company: '海润人力资源有限公司',
-      consultant: '水君',
-      phone: 1234567890
-    },
+    orderid: 'default',
+    order_info: '',
     pt_list_confirm: [{
       id: '1',
       avatar: '/images/pic.jpg',
@@ -43,7 +30,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (options.orderid) {
+      this.setData({
+        orderid: options.orderid
+      })
+    }
   },
 
   /**
@@ -57,39 +48,67 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    /* gql.query({
+    gql.query({
       query: `query {
-        order_detail(
-          order_id: "${param}"
+        search(
+          orderid: "${this.data.orderid}"
         ) {
-          order_info {
-            job,
-            date,
-            period,
-            isSex,
-            pt_count,
-            pt_count_yet,
-            pt_count_male,
-            pt_count_male_yet,
-            pt_count_female,
-            pt_count_female_yet,
-            company,
-            consultant,
+          adviser{
+            name
             phone
+            companyname
           }
-          pt_list_confirm {
-
+          originorder{
+            orderid
+            occupation
+            datetime
+            duration
+            mode
+            count
+            male
+            female
           }
-          pt_list_notConfirm {
-
+          modifiedorder{
+            changeddatetime
+            changedduration
+            changedmode
+            changedcount
+            changedmale
+            changedfemale
           }
+          countyet
+          maleyet
+          femaleyet
         }
       }`
     }).then((res) => {
       console.log('success', res);
+      let temp = new Date(res.search[0].originorder.datetime * 1000)
+      let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+      let tempHour = temp.getHours()
+      let tempMinutes = util.formatNumber(temp.getMinutes())
+      let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + res.search[0].originorder.duration)}:${tempMinutes}`
+      res.search[0].originorder.date = tempdate
+      res.search[0].originorder.time = tempTime
+      if (res.search[0].modifiedorder.length > 0) {
+        let temp = new Date(res.search[0].modifiedorder[0].changeddatetime * 1000)
+        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+        let tempHour = temp.getHours()
+        let tempMinutes = util.formatNumber(temp.getMinutes())
+        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + res.search[0].modifiedorder[0].changedduration)}:${tempMinutes}`
+        res.search[0].modifiedorder[0].date = tempdate
+        res.search[0].modifiedorder[0].time = tempTime
+      }
+      this.setData({
+        order_info: res.search[0]
+      })
     }).catch((error) => {
       console.log('fail', error);
-    }); */
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   /**
@@ -129,7 +148,7 @@ Page({
 
   doCall: function() {
     wx.makePhoneCall({
-      phoneNumber: '1234567890',
+      phoneNumber: this.data.order_info.adviser.phone,
     })
   },
 
@@ -140,11 +159,11 @@ Page({
   goModifyOrder: function() {
     wx.showModal({
       title: '提示',
-      content: '是否要修改订单？',
+      content: '确认修改订单吗？您只能修改一次。',
       success: res => {
         if (res.confirm) {
           wx.navigateTo({
-            url: '/pages/h2-order/modify-order/modify-order',
+            url: `/pages/h2-order/modify-order/modify-order?orderid=${this.data.order_info.originorder.orderid}`,
           })
         }
       }
@@ -154,13 +173,32 @@ Page({
   doCloseOrder: function() {
     wx.showModal({
       title: '提示',
-      content: '是否要修改订单？',
+      content: '是否要关闭订单？',
       success: res => {
         if (res.confirm) {
-
-          wx.navigateBack({
-            delta: 1
-          })
+          gql.mutate({
+            mutation: `mutation{
+              closeorder(
+                orderid:"${this.data.order_info.originorder.orderid}"
+              ){
+                orderid
+                error
+              }
+            }`
+          }).then((res) => {
+            console.log('success', res);
+            wx.showToast({
+              title: '订单已关闭',
+              icon: 'success'
+            })
+            setTimeout(() => {
+              wx.switchTab({
+                url: '/pages/h2-order/list-order/list-order',
+              })
+            }, 1000)
+          }).catch((error) => {
+            console.log('fail', error);
+          });
         }
       }
     })

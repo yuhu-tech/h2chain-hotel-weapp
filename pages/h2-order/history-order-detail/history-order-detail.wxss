@@ -16,6 +16,13 @@ page {
   justify-content: space-between;
 }
 
+.top_card_cen_bd {
+  width: 100%;
+  border-bottom: solid 1rpx #c8c8c8;
+  position: absolute;
+  top: 45%;
+}
+
 .blank {
   margin-left: 20rpx;
 }
@@ -44,6 +51,7 @@ page {
 
 .search {
   padding: 30rpx;
+  position: relative;
 }
 
 .search_p {
@@ -60,8 +68,15 @@ input {
 
 .arrow {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 0;
+  right: 8%;
+  height: 100%;
+}
+
+.arrow_box {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 /* list */
@@ -97,4 +112,11 @@ input {
 .link_arrow {
   margin-top: 5rpx;
   margin-left: 20rpx;
+}
+
+/* modified */
+
+.modified {
+  color: #c8c8c8;
+  position: relative;
 }

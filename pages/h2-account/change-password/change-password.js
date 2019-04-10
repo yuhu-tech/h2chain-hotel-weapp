@@ -1,8 +1,8 @@
 // pages/h2-account/change-password/change-password.js
 var gql = require('../../../utils/graphql.js')
 import {
-  $wuxToptips
-} from 'wux-weapp/index.js'
+  $inToptip
+} from '../../../components/index.js'
 
 Page({
 
@@ -95,64 +95,62 @@ Page({
     })
   },
 
-  showToptips: function(message) {
-    $wuxToptips().error({
-      hidden: false,
-      text: message,
-      duration: 3000,
-      success() {}
-    })
-  },
-
   doConfirm: function() {
     let reg = /^[a-zA-Z0-9]{6,18}$/;
     /* 非空检验 */
     if (!this.data.old_psw) {
-      this.showToptips('请输入旧密码')
+      $inToptip().show('请输入旧密码')
       return
     }
     if (!this.data.new_psw) {
-      this.showToptips('请输入新密码')
+      $inToptip().show('请输入新密码')
       return
     }
     if (!reg.test(this.data.new_psw)) {
-      this.showToptips('密码为6～18位大小写字母、数字组合')
+      $inToptip().show('密码为6～18位大小写字母 数字组合')
       return
     }
     if (this.data.new_psw == this.data.old_psw) {
-      this.showToptips('新密码不能与旧密码相同')
+      $inToptip().show('新密码不能与旧密码相同')
       return
     }
     if (!this.data.re_psw) {
-      this.showToptips('请再次输入新密码')
+      $inToptip().show('请再次输入新密码')
       return
     }
     /* validate */
     if (this.data.new_psw != this.data.re_psw) {
-      this.showToptips('两次输入的新密码不一致')
+      $inToptip().show('两次输入的新密码不一致')
       return
     }
-    /* gql.mutate({
+
+    gql.mutate({
       mutation: `mutation {
-        changePsw(
-          old_psw: "${this.data.old_psw}"
-          new_psw: "${this.data.new_psw}"
+        changepassword(
+          oldpassword: "${this.data.old_psw}"
+          newpassword: "${this.data.new_psw}"
         ) {
-          res
+          error
         }
       }`
     }).then((res) => {
       console.log('success', res);
-      wx.switchTab({
-        url: '/pages/h2-account/home/home',
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success'
       })
+      setTimeout(() => {
+        wx.switchTab({
+          url: '/pages/h2-account/home/home',
+        })
+      }, 1000)
     }).catch((error) => {
       console.log('fail', error);
       wx.showToast({
         title: '修改失败',
         icon: 'none'
       })
-    }); */
+    });
   },
 
 })

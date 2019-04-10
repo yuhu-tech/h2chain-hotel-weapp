@@ -4,6 +4,6 @@
     "wux-white-space": "wux-weapp/white-space",
     "wux-input": "wux-weapp/input",
     "wux-button": "wux-weapp/button",
-    "wux-toptips": "wux-weapp/toptips"
+    "toptip":"/components/toptip/toptip"
   }
 }

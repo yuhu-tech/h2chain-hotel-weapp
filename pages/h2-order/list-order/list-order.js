@@ -1,5 +1,6 @@
 // pages/h2-order/list-order/list-order.js
 var gql = require('../../../utils/graphql.js')
+var util = require('../../../utils/util.js')
 
 Page({
 
@@ -8,38 +9,8 @@ Page({
    */
   data: {
     date: '',
-    order_list_wait: [{
-      job: '服务员',
-      company: '海润人力资源公司',
-      consultant: '水君',
-      date: '2019-12-29',
-      period: '10:00～14:00',
-      is_time_modify: false,
-      isSex: 0,
-      is_count_modify: true,
-      pt_count: 10,
-      pt_count_yet: 5,
-      pt_count_male: 10,
-      pt_count_male_yet: 5,
-      pt_count_female: 10,
-      pt_count_female_yet: 5
-    }],
-    order_list_ing: [{
-      job: '服务员',
-      company: '海润人力资源公司',
-      consultant: '水君',
-      date: '2019-12-29',
-      period: '10:00～14:00',
-      isTimeModify: true,
-      isSex: 1,
-      isCountModify: true,
-      pt_count: 10,
-      pt_count_yet: 5,
-      pt_count_male: 10,
-      pt_count_male_yet: 5,
-      pt_count_female: 10,
-      pt_count_female_yet: 5
-    }],
+    order_list_wait: [],
+    order_list_ing: []
   },
 
   /**
@@ -60,14 +31,84 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(options) {
-    console.log(options)
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({
         selected: 0
       })
     }
-    wx.show
+    gql.query({
+      query: `query{
+        search{
+          state
+          adviser{
+            name
+            companyname
+          }
+          originorder{
+            orderid
+            occupation
+            datetime
+            duration
+            mode
+            count
+            male
+            female
+          }
+          modifiedorder{
+            changeddatetime
+            changedduration
+            changedmode
+            changedcount
+            changedmale
+            changedfemale
+          }
+          countyet
+          maleyet
+          femaleyet
+        }
+      }`
+    }).then((res) => {
+      let tempWait = []
+      let tempIng = []
+
+      for (let item of res.search) {
+        let temp = new Date(item.originorder.datetime * 1000)
+        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+        let tempHour = temp.getHours()
+        let tempMinutes = util.formatNumber(temp.getMinutes())
+        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.originorder.duration)}:${tempMinutes}`
+        item.originorder.date = tempdate
+        item.originorder.time = tempTime
+        
+        if (item.modifiedorder.length > 0) {
+          let temp = new Date(item.modifiedorder[0].changeddatetime * 1000)
+          let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+          let tempHour = temp.getHours()
+          let tempMinutes = util.formatNumber(temp.getMinutes())
+          let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.modifiedorder[0].changedduration)}:${tempMinutes}`
+          item.modifiedorder[0].date = tempdate
+          item.modifiedorder[0].time = tempTime
+        }
+
+        if (item.state === 0) {
+          tempWait.push(item)
+        } else {
+          tempIng.push(item)
+        }
+      }
+      console.log('success', res);
+      this.setData({
+        order_list_wait: tempWait,
+        order_list_ing: tempIng
+      })
+    }).catch((error) => {
+      console.log('fail', error);
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   /**
@@ -110,38 +151,76 @@ Page({
     this.setData({
       date: e.detail.value
     })
+    let timeStamp = new Date(`${this.data.date}T00:00:00`).getTime() / 1000
     gql.query({
-      query: `query {
-        order_list(
-          date: "${this.data.date}"
-        ) {
-          order {
-            id,
-            job,
-            company,
-            consultant,
-            date,
-            period,
-            isSex,
-            pt_count,
-            pt_count_yet,
-            pt_count_male,
-            pt_count_male_yet,
-            pt_count_female,
-            pt_count_female_yet,
+      query: `query{
+        search(
+          datetime:${Number(timeStamp)}
+        ){
+          state
+          adviser{
+            name
+            companyname
           }
+          originorder{
+            orderid
+            occupation
+            datetime
+            duration
+            mode
+            count
+            male
+            female
+          }
+          modifiedorder{
+            changeddatetime
+            changedduration
+            changedmode
+            changedcount
+            changedmale
+            changedfemale
+          }
+          countyet
+          maleyet
+          femaleyet
         }
       }`
     }).then((res) => {
+      for (let item of res.search) {
+        let temp = new Date(item.originorder.datetime * 1000)
+        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+        let tempHour = temp.getHours()
+        let tempMinutes = util.formatNumber(temp.getMinutes())
+        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.originorder.duration)}:${tempMinutes}`
+        item.originorder.date = tempdate
+        item.originorder.time = tempTime
+        if (item.modifiedorder.length > 0) {
+          let temp = new Date(item.modifiedorder[0].changeddatetime * 1000)
+          let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+          let tempHour = temp.getHours()
+          let tempMinutes = util.formatNumber(temp.getMinutes())
+          let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.modifiedorder[0].changedduration)}:${tempMinutes}`
+          item.modifiedorder[0].date = tempdate
+          item.modifiedorder[0].time = tempTime
+        }
+      }
       console.log('success', res);
+      this.setData({
+        order_list: res.search
+      })
     }).catch((error) => {
       console.log('fail', error);
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
     });
   },
 
-  goDetail: function() {
+  goDetail: function(e) {
     wx.navigateTo({
-      url: '/pages/h2-order/list-order-detail/list-order-detail',
+      url: `/pages/h2-order/list-order-detail/list-order-detail?orderid=${e.currentTarget.dataset.orderid}`,
     })
   }
+
 })

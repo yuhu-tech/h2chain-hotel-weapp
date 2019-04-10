@@ -1,5 +1,5 @@
 <!--pages/h2-order/new-order/new-order.wxml-->
-<wux-toptips id="wux-toptips" />
+<toptip id="inToptip" />
 
 <view class="page">
   <view class="page__bd">
@@ -10,7 +10,7 @@
         <view class='select_picker'>
           <view wx:if="{{value_job}}">{{value_job}}</view>
           <view wx:else class='n200'>请选择</view>
-          <view class='access'></view>
+          <view class='access' />
         </view>
       </picker>
     </view>
@@ -21,7 +21,7 @@
         <view class='select_picker'>
           <view wx:if="{{value_date}}">{{value_date}}</view>
           <view wx:else class='n200'>请选择</view>
-          <view class='access'></view>
+          <view class='access' />
         </view>
       </picker>
     </view>
@@ -32,18 +32,18 @@
         <view class='select_picker'>
           <view wx:if="{{value_start}}">{{value_start}}</view>
           <view wx:else class='n200'>请选择</view>
-          <view class='access'></view>
+          <view class='access' />
         </view>
       </picker>
     </view>
     <wux-white-space body-style='height:30rpx' />
     <view class='select'>
       <view>用人时长</view>
-      <picker bindchange="bindPickerChange" value="{{value_period}}" range="{{periodArray}}">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{durationArray}}">
         <view class='select_picker'>
-          <view wx:if="{{value_period}}">{{value_period}}</view>
+          <view wx:if="{{value_duration}}">{{durationArray[value_duration]}}</view>
           <view wx:else class='n200'>请选择</view>
-          <view class='access'></view>
+          <view class='access' />
         </view>
       </picker>
     </view>
@@ -87,14 +87,17 @@
             <radio value="{{item.name}}" color='#ffb342'>{{item.name}}</radio>
             <image src='/images/order-phone.png' bindtap='doCall' data-phone="{{item.phone}}" />
           </view>
-          <view class='radio_tip'>{{item.company}}</view>
+          <view class='radio_tip'>{{item.companyname}}</view>
           <wux-white-space body-style='height:30rpx' />
         </label>
       </radio-group>
     </view>
-    <wux-white-space body-style='height:50rpx' />
+  </view>
+  <view class='page_ft'>
     <view class='btn'>
-      <wux-button type='main' bind:click="doPublish">发布</wux-button>
+      <wux-button type='main' bind:click="doPublish">
+        <view class='text_btn'>发布</view>
+      </wux-button>
     </view>
     <wux-white-space body-style='height:50rpx' />
   </view>

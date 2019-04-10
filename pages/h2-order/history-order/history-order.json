@@ -5,5 +5,6 @@
     "wux-icon": "wux-weapp/icon",
     "wux-row": "wux-weapp/row",
     "wux-card": "wux-weapp/card"
-  }
+  },
+  "navigationBarTitleText": "历史订单"
 }

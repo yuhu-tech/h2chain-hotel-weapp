@@ -8,11 +8,7 @@ Page({
    */
   data: {
     userInfo: {},
-    qlInfo: {
-      phone: 1234567890,
-      hotel_name: '希尔顿酒店',
-      job: 'HR'
-    },
+    qlInfo: '',
   },
 
   /**
@@ -39,42 +35,33 @@ Page({
     }
     wx.getUserInfo({
       success: res => {
-        console.log(res)
         this.setData({
           userInfo: res.userInfo
         })
       }
     })
-    /* ql */
-    try {
-      let email = wx.getStorageSync('email')
-      if (email) {
-        /* gql.mutate({
-              mutation: `mutation {
-                me(
-                  email: "${this.data.email}"
-                ) {
-                  phone,
-                  hotel_name,
-                  job
-                }
-              }`
-            }).then((res) => {
-              console.log('success', res);
-              this.setData({
-                qlInfo: res
-              })
-            }).catch((error) => {
-              console.log('fail', error);
-            }); */
-      }
-    } catch (e) {
+    gql.query({
+      query: `query {
+        me{
+          profile{
+            phone
+            name
+            occupation
+          }
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      this.setData({
+        qlInfo: res.me.profile
+      })
+    }).catch((error) => {
+      console.log('fail', error);
       wx.showToast({
-        title: '获取账号失败',
+        title: '加载失败',
         icon: 'none'
       })
-      console.log(e)
-    }
+    });
   },
 
   /**

@@ -1,8 +1,8 @@
 // pages/h2Account/login/login.js
 var gql = require('../../../utils/graphql.js')
 import {
-  $wuxToptips
-} from 'wux-weapp/index.js'
+  $inToptip
+} from '../../../components/index.js'
 
 Page({
 
@@ -11,7 +11,7 @@ Page({
    */
   data: {
     email: '',
-    password: ''
+    password: '',
   },
 
   /**
@@ -107,25 +107,57 @@ Page({
     })
   },
 
-  showToptips(message) {
-    $wuxToptips().error({
-      icon: 'cancel',
-      hidden: false,
-      text: message,
-      duration: 3000,
-      success() {},
-    })
-  },
-
-  doLogin: function(e) {
+  isValidate: function() {
     if (!this.data.email) {
-      this.showToptips('请输入您的账号')
+      $inToptip().show('请输入您的账号')
       return
     }
     if (!this.data.password) {
-      this.showToptips('请输入您的密码')
+      $inToptip().show('请输入您的密码')
       return
     }
+    this.isAuth()
+  },
+
+  isAuth: function() {
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          this.doLogin()
+        } else {
+          this.showModal()
+        }
+      }
+    })
+  },
+
+  showModal: function(e) {
+    this.setData({
+      modalName: 'show'
+    })
+  },
+
+  hideModal: function(e) {
+    this.setData({
+      modalName: null
+    })
+  },
+
+  bindGetUserInfo: function(e) {
+    wx.login({
+      success: (res_login) => {
+        console.log(res_login)
+        wx.getUserInfo({
+          success: (res_getUserInfo) => {
+            this.hideModal()
+            this.doLogin(res_login.code)
+          }
+        })
+      }
+    })
+  },
+
+  doLogin: function(code) {
     wx.showToast({
       title: '正在登录',
       icon: 'loading',
@@ -136,6 +168,7 @@ Page({
         login(
           email: "${this.data.email}"
           password: "${this.data.password}"
+          jscode:"${code}"
         ) {
           token
         }
@@ -147,35 +180,28 @@ Page({
         icon: 'success'
       })
       try {
-        wx.setStorageSync('email', this.data.email)
         wx.setStorageSync('token', res.login.token)
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/h2-order/list-order/list-order',
+          })
+        }, 1000)
       } catch (err) {
-        console.log('setStorage failed')
         console.log(err)
       }
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            wx.switchTab({
-              url: '/pages/h2-order/list-order/list-order',
-            })
-          } else {
-            wx.navigateTo({
-              url: '/pages/h2-account/auth/auth',
-            })
-          }
-        }
-      })
     }).catch((error) => {
-      console.log('fail', error);
       if (error.errors[0].message === 'Invalid password') {
-        this.showToptips('密码不正确！')
+        $inToptip().show('密码不正确！')
+        wx.hideToast()
       } else if (error.errors[0].message === "Cannot read property 'password' of undefined") {
-        this.showToptips('账户不正确！')
+        $inToptip().show('账户不正确！')
+        wx.hideToast()
       } else {
-        this.showToptips('登录失败')
+        console.log(error)
+        $inToptip().show('啊喔，不知道哪里出错了。')
+        wx.hideToast()
       }
     });
-  },
+  }
 
 })

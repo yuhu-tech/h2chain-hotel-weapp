@@ -6,16 +6,26 @@ var gql = GraphQL({
   //设置全局url
   url: config.service.host, // url必填
 
-  //设置全居动态header
+  //设置全局动态header
   header: function() {
+    let token = wx.getStorageSync('token')
+
     return {
-      // something....
-      'X-Test-Header': 'test header content'
+      "Authorization": "Bearer " + token
     }
   },
-  //设置全居错误拦截
+  //设置全局错误拦截
   errorHandler: function(res) {
-    //do something
+    /* wx.showToast({
+      title: '登录已过期',
+      success: () => {
+        setTimeout(() => {
+          wx.reLaunch({
+            url: '/pages/h2-account/login/login',
+          })
+        }, 2000)
+      }
+    }) */
   }
 }, true);
 

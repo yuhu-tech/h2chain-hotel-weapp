@@ -1,8 +1,8 @@
 // pages/h2-order/new-order/new-order.js
 var gql = require('../../../utils/graphql.js')
 import {
-  $wuxToptips
-} from '../../../miniprogram_npm/wux-weapp/index.js'
+  $inToptip
+} from '../../../components/index.js'
 
 Page({
 
@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    jobArray: ['纯阳', '万花', '天策', '藏剑', '七秀', '少林', '唐门'],
+    jobArray: [],
     value_job: '',
     value_date: '',
     multiArray: [
@@ -19,8 +19,8 @@ Page({
     ],
     multiIndex: [9, 0],
     value_start: '',
-    periodArray: ['1 小时', '2 小时', '3 小时', '4 小时'],
-    value_period: '',
+    durationArray: ['1 小时', '2 小时', '3 小时', '4 小时'],
+    value_duration: '',
     items: [{
         name: '关闭',
         value: 0,
@@ -31,23 +31,11 @@ Page({
         value: 1
       },
     ],
-    pt_count: '',
-    pt_count_male: '',
-    pt_count_female: '',
+    pt_count: 0,
+    pt_count_male: 0,
+    pt_count_female: 0,
     isSex: 0,
-    consultant_list: [{
-      name: '一碗乌冬面',
-      phone: '1111111',
-      company: '纯阳'
-    }, {
-      name: '一支蘸水笔',
-      phone: '2222222',
-      company: '万花'
-    }, {
-      name: '一柄朱骨扇',
-      phone: '3333333',
-      company: '七秀'
-    }, ],
+    consultant_list: [],
     consultant: ''
   },
 
@@ -69,27 +57,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    /* gql.query({
+    gql.query({
       query: `query {
-        login(
-          email: "${this.data.email}"
-        ) {
-          job_list,
-          consultants {
-            name,
-            phone,
-            company
+        need {
+          occupations
+          advisers {
+            name
+            phone
+            companyname
           }
         }
       }`
     }).then((res) => {
-      console.log('success', res);
+      console.log('success', res.need);
       this.setData({
-        jobList: res.job_list,
+        jobArray: res.need.occupations,
+        consultant_list: res.need.advisers
       })
     }).catch((error) => {
       console.log('fail', error);
-    }); */
+    });
   },
 
   /**
@@ -129,7 +116,7 @@ Page({
 
   /* 招募职位 */
   bindPickerChangeJob(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log()
     this.setData({
       value_job: this.data.jobArray[e.detail.value]
     })
@@ -137,7 +124,6 @@ Page({
 
   /* 用人日期 */
   bindDateChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       value_date: e.detail.value
     })
@@ -145,7 +131,6 @@ Page({
 
   /* 开始时间 */
   bindMultiPickerChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     let start_time = `${this.data.multiArray[0][e.detail.value[0]]}:${this.data.multiArray[1][e.detail.value[1]]}`
     this.setData({
       value_start: start_time
@@ -154,15 +139,14 @@ Page({
 
   /* 用人时长 */
   bindPickerChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      value_period: this.data.periodArray[e.detail.value]
+      value_duration: e.detail.value
     })
+    console.log(e.detail.value)
   },
 
   /* 性别自定义 */
   radioChange(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
     this.setData({
       isSex: e.detail.value
     })
@@ -170,7 +154,6 @@ Page({
 
   /* 用人人数 */
   iptPtCount: function(e) {
-    console.log(e)
     this.setData({
       pt_count: e.detail.value
     })
@@ -190,7 +173,6 @@ Page({
 
   /* 选择顾问 */
   radioChangeCons(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
     this.setData({
       consultant: e.detail.value
     })
@@ -214,61 +196,63 @@ Page({
     }
     /* 非空检查 */
     if (!this.data.value_job) {
-      this.showToptips('请选择招募职位')
+      $inToptip().show('请选择招募职位')
       return
     }
     if (!this.data.value_date) {
-      this.showToptips('请选择用人日期')
+      $inToptip().show('请选择用人日期')
       return
     }
     if (!this.data.value_start) {
-      this.showToptips('请选择开始时间')
+      $inToptip().show('请选择开始时间')
       return
     }
-    if (!this.data.value_period) {
-      this.showToptips('请选择用人时长')
+    if (!this.data.value_duration) {
+      $inToptip().show('请选择用人时长')
       return
     }
-    if (!count) {
-      this.showToptips('请输入用人人数')
-      return
+    if (Number(this.data.isSex) === 0) {
+      if (!count) {
+        $inToptip().show('请输入用人人数')
+        return
+      }
+    } else {
+      if (!this.data.pt_count_male || !this.data.pt_count_female) {
+        $inToptip().show('请输入男/女人数')
+        return
+      }
     }
     if (!this.data.consultant) {
-      this.showToptips('请选择顾问')
+      $inToptip().show('请选择顾问')
       return
     }
-    /* gql.mutate({
+    var timestamp = new Date(`${this.data.value_date} ${this.data.value_start}:00`.replace(/-/g, '/')).getTime() / 1000;
+    gql.mutate({
       mutation: `mutation {
-        publish(
-          job: "${this.data.value_job}",
-          date:"${this.data.value_date}",
-          start_time:"${this.data.value_time}",
-          period:"${this.data.value_period}",
-          pt_count:"${count}",
-          consultant:"${this.data.consultant}"
-        ) {
-            success/err
+        createorder(
+          createorder: {
+            occupation: "${this.data.value_job}",
+            datetime: ${timestamp},
+            duration: ${Number(this.data.value_duration) + 1},
+            mode: ${Number(this.data.isSex)},
+            count: ${Number(this.data.pt_count)},
+            male: ${Number(this.data.pt_count_male)},
+            female: ${Number(this.data.pt_count_female)},
+            advisername: "${this.data.consultant}"
           }
+        ) {
+          orderid
+          error
         }
       }`
     }).then((res) => {
       console.log('success', res);
-      this.setData({
-        jobList: res.job_list,
+      wx.navigateTo({
+        url: '/pages/h2-order/prompt-success/prompt-success',
       })
     }).catch((error) => {
       console.log('fail', error);
-    }); */
-  },
-
-  showToptips(message) {
-    $wuxToptips().error({
-      icon: 'cancel',
-      hidden: false,
-      text: message,
-      duration: 3000,
-      success() {},
-    })
-  },
+    });
+  }
 
 })

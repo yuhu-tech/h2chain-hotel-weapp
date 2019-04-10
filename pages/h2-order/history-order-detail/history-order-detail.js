@@ -1,4 +1,6 @@
 // pages/h2-order/history-order-detail/history-order-detail.js
+var gql = require('../../../utils/graphql.js')
+var util = require('../../../utils/util.js')
 
 Page({
 
@@ -6,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    orderid: 'default',
+    order: '',
     pt_list: [{}, {}, {}, {}, {}, {}, {}, {}, {}, ]
   },
 
@@ -13,7 +17,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (options.orderid) {
+      this.setData({
+        orderid: options.orderid
+      })
+    }
   },
 
   /**
@@ -27,7 +35,66 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    gql.query({
+      query: `query{
+        search(
+          orderid:"${this.data.orderid}"
+        ){
+          adviser{
+            name
+            phone
+            companyname
+          }
+          originorder{
+            occupation
+            datetime
+            duration
+            mode
+            count
+            male
+            female
+          }
+          modifiedorder{
+            changeddatetime
+            changedduration
+            changedmode
+            changedcount
+            changedmale
+            changedfemale
+          }
+          countyet
+          maleyet
+          femaleyet
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      let temp = new Date(res.search[0].originorder.datetime * 1000)
+      let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+      let tempHour = temp.getHours()
+      let tempMinutes = util.formatNumber(temp.getMinutes())
+      let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + res.search[0].originorder.duration)}:${tempMinutes}`
+      res.search[0].originorder.date = tempdate
+      res.search[0].originorder.time = tempTime
+      if (res.search[0].modifiedorder.length > 0) {
+        let temp = new Date(res.search[0].modifiedorder[0].changeddatetime * 1000)
+        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
+        let tempHour = temp.getHours()
+        let tempMinutes = util.formatNumber(temp.getMinutes())
+        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + res.search[0].modifiedorder[0].changedduration)}:${tempMinutes}`
+        res.search[0].modifiedorder[0].date = tempdate
+        res.search[0].modifiedorder[0].time = tempTime
+      }
+      this.setData({
+        order: res.search[0]
+      })
+    }).catch((error) => {
+      console.log('fail', error);
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   /**
@@ -65,9 +132,9 @@ Page({
 
   },
 
-  doCall:function(){
+  doCall: function() {
     wx.makePhoneCall({
-      phoneNumber: '1111111',
+      phoneNumber: this.data.order.adviser.phone,
     })
   },
 

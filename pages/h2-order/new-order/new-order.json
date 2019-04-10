@@ -6,6 +6,7 @@
     "wux-icon": "wux-weapp/icon",
     "wux-input": "wux-weapp/input",
     "wux-button": "wux-weapp/button",
-    "wux-toptips": "wux-weapp/toptips"
-  }
+    "toptip": "/components/toptip/toptip"
+  },
+  "navigationBarTitleText": "新建订单"
 }

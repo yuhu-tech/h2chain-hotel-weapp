@@ -1,9 +1,11 @@
 /**app.wxss**/
-@import 'miniprogram_npm/wux-weapp/styles/index.wxss';
+@import "colorui.wxss";
 
 page {
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30rpx;
+  color: #323232;
 }
 
 .y200 {
@@ -37,12 +39,34 @@ page {
 /* ----------wux---------- */
 
 .wux-input {
-  border-bottom: solid 1rpx #c8c8c8;
+  border-bottom: solid 1rpx #eee;
+  padding: 20rpx 0;
+}
+
+.wux-button {
+  min-height: 70rpx !important;
+  line-height: normal !important;
+  height: 70rpx;
+  font-size: 30rpx;
+}
+
+.text_btn {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wux-button--main {
   background-color: #d7a646 !important;
   color: #fff !important;
+}
+
+.wux-button--main.wux-button--outline,
+.wux-button--main.wux-button--outline.wux-button--disabled {
+  border-color: #d7a646 !important;
+  background-color: transparent !important;
+  color: #d7a646 !important;
 }
 
 .wux-button--main.wux-button--hover {

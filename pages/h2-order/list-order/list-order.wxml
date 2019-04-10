@@ -1,85 +1,142 @@
 <!--pages/h2-order/list-order/list-order.wxml-->
 
 <view class='page'>
-  <view class='page_bd'>
-    <wux-row>
-      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
-        <view class='picker'>
-          <view></view>
-          <view>{{date?date:'选择用工日期'}}</view>
-          <view class='arrow'>
-            <wux-icon type='md-arrow-dropdown' />
+
+  <wux-row>
+    <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+      <view class='picker'>
+        <view></view>
+        <view>{{date?date:'选择用工日期'}}</view>
+        <view class='arrow'>
+          <wux-icon type='md-arrow-dropdown' />
+        </view>
+      </view>
+    </picker>
+  </wux-row>
+
+  <!-- <wxs module="divider">
+    var isHit = false;
+
+    function isShow(e) {
+      if (!isHit && e.state === 0) {
+        isHit = true
+        return true
+      } else {
+        return false
+      }
+    }
+    module.exports.isShow = isShow;
+  </wxs> -->
+
+  <block wx:for="{{order_list_wait}}" wx:key="">
+    <view class='divider_r'>
+      <wux-divider position="right" text="待接单" wx:if="{{index===0}}" />
+    </view>
+    <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
+      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/pic.jpg">
+        <view slot="body">
+          <view class='n200'>用工时间</view>
+          <wux-white-space body-style="height:10rpx" />
+          <view class='card_line'>
+            <view>{{item.modifiedorder[0].date||item.originorder.date}} {{item.modifiedorder[0].time||item.originorder.time}}</view>
+            <view class='r200'>
+              <text wx:if="{{item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
+            </view>
+          </view>
+          <wux-white-space body-style="height:30rpx" />
+          <view class='n200'>用工人数</view>
+          <wux-white-space body-style="height:10rpx" />
+          <view class='card_line'>
+            <view>
+              <view wx:if="{{item.modifiedorder.length>0?(item.originorder.mode===0):(item.modifiedorder[0].changedmode===0)}}">
+                <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
+              </view>
+              <view wx:else>
+                <text class='card_count_isSex'>男 {{item.maleyet}}/{{item.modifiedorder[0].changedmale||item.originorder.male}}</text>
+                <text>女 {{item.femaleyet}}/{{item.modifiedorder[0].changedfemale||item.originorder.female}}</text>
+              </view>
+            </view>
+            <view class='r200'>
+              <text wx:if="{{item.originorder.count!==item.modifiedorder[0].changedcount||item.originorder.male!==item.modifiedorder[0].changedmale||item.originorder.female!==item.modifiedorder[0].changedfemale}}">人数变更</text>
+            </view>
           </view>
         </view>
-      </picker>
-    </wux-row>
-    <view class='divider_r'>
-      <wux-divider position="right" text="待接单" />
+        <view class='foot' slot="footer">
+          <view class='y200 link'>订单详情
+            <view class='link_arrow'>
+              <wux-icon type="ios-arrow-forward" size='20' />
+            </view>
+          </view>
+        </view>
+      </wux-card>
+      <wux-white-space body-style="height:30rpx" wx:if="{{index!=order_list_wait.length-1}}" />
     </view>
-    <block wx:for="{{order_list_wait}}" wx:key="">
-      <view bindtap='goDetail'>
-        <wux-card title="{{item.job}}" extra="{{item.company}} {{item.consultant}}" bordered="{{false}}" thumb="/images/pic.jpg">
-          <view slot="body">
-            <view class='n200'>用工时间</view>
-            <wux-white-space body-style="height:10rpx" />
-            <view>{{item.date}} {{item.period}}</view>
-            <wux-white-space body-style="height:30rpx" />
-            <view class='n200'>用工人数</view>
-            <wux-white-space body-style="height:10rpx" />
-            <view class='card_count'>
-              <view wx:if="{{item.isSex===0}}">
-                <text>{{item.pt_count_yet}}/{{item.pt_count}}</text>
-              </view>
-              <view wx:else>
-                <text class='card_count_isSex'>男 {{item.pt_count_male_yet}}/{{item.pt_count_male}}</text>
-                <text>女 {{item.pt_count_female_yet}}/{{item.pt_count_female}}</text>
-              </view>
-            </view>
-          </view>
-          <view class='foot' slot="footer">
-            <view class='y200 link'>订单详情
-              <view class='link_arrow'>
-                <wux-icon type="ios-arrow-forward" size='20' />
-              </view>
-            </view>
-          </view>
-        </wux-card>
-        <wux-white-space body-style="height:30rpx" wx:if="{{index!=order_list_wait.length-1}}" />
-      </view>
-    </block>
+  </block>
+
+  <block wx:for="{{order_list_ing}}" wx:key="">
     <view class='divider_n'>
-      <wux-divider position="right" text="招募中" />
+      <wux-divider position="right" text="招募中" wx:if="{{index===0}}" />
     </view>
-    <block wx:for="{{order_list_ing}}" wx:key="">
-      <view bindtap='goDetail'>
-        <wux-card title="{{item.job}}" extra="{{item.company}} {{item.consultant}}" bordered="{{false}}" thumb="/images/pic.jpg">
-          <view slot="body">
-            <view class='n200'>用工时间</view>
-            <wux-white-space body-style="height:10rpx" />
-            <view>{{item.date}} {{item.period}}</view>
-            <wux-white-space body-style="height:30rpx" />
-            <view class='n200'>用工人数</view>
-            <wux-white-space body-style="height:10rpx" />
-            <view class='card_count'>
-              <view wx:if="{{item.isSex===0}}">
-                <text>{{item.pt_count_yet}}/{{item.pt_count}}</text>
+    <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
+      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/pic.jpg">
+        <view slot="body">
+          <view class='n200'>用工时间</view>
+          <wux-white-space body-style="height:10rpx" />
+
+          <view class='card_line'>
+            <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder.length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
+            <view class='r200'>
+              <text wx:if="{{item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
+            </view>
+          </view>
+
+          <wux-white-space body-style="height:30rpx" />
+          <view class='n200'>用工人数</view>
+          <wux-white-space body-style="height:10rpx" />
+
+          <view class='card_line'>
+            <view>
+              <view wx:if="{{item.modifiedorder.length>0?(item.originorder.mode===0):(item.modifiedorder[0].changedmode===0)}}">
+                <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
               </view>
               <view wx:else>
-                <text class='card_count_isSex'>男 {{item.pt_count_male_yet}}/{{item.pt_count_male}}</text>
-                <text>女 {{item.pt_count_female_yet}}/{{item.pt_count_female}}</text>
+                <text class='card_count_isSex'>男 {{item.maleyet}}/{{item.modifiedorder[0].changedmale||item.originorder.male}}</text>
+                <text>女 {{item.femaleyet}}/{{item.modifiedorder[0].changedfemale||item.originorder.female}}</text>
               </view>
             </view>
-          </view>
-          <view class='foot' slot="footer">
-            <view class='y200 link'>订单详情
-              <view class='link_arrow'>
-                <wux-icon type="ios-arrow-forward" size='20' />
-              </view>
+            <view class='r200'>
+              <text wx:if="{{item.originorder.count!==item.modifiedorder[0].changedcount||item.originorder.male!==item.modifiedorder[0].changedmale||item.originorder.female!==item.modifiedorder[0].changedfemale}}">人数变更</text>
             </view>
           </view>
-        </wux-card>
-        <wux-white-space body-style="height:30rpx" wx:if="{{index!=order_list_wait.length-1}}" />
-      </view>
-    </block>
+
+        </view>
+        <view class='foot' slot="footer">
+          <view class='y200 link'>订单详情
+            <view class='link_arrow'>
+              <wux-icon type="ios-arrow-forward" size='20' />
+            </view>
+          </view>
+        </view>
+      </wux-card>
+      <wux-white-space body-style="height:30rpx" wx:if="{{index!=order_list_ing.length-1}}" />
+    </view>
+  </block>
+
+  <view class='none n200' wx:if="{{order_list.length==0}}">
+    <view class='none_top'>
+      <wux-white-space body-style="height:80rpx" />
+      <image src='/images/order-none.png' />
+      <text>当前没有订单</text>
+    </view>
+    <view class='none_btm'>
+      <text>发布订单招募吧!</text>
+      <view class='access access_top' />
+      <view class='access' />
+      <wux-white-space body-style="height:80rpx" />
+    </view>
   </view>
+  <view wx:else>
+    <wux-white-space body-style="height:180rpx" />
+  </view>
+
 </view>

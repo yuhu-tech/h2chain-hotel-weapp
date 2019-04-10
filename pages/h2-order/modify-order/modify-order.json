@@ -8,5 +8,6 @@
     "wux-icon": "wux-weapp/icon",
     "wux-input": "wux-weapp/input",
     "wux-button": "wux-weapp/button"
-  }
+  },
+  "navigationBarTitleText": "修改订单"
 }

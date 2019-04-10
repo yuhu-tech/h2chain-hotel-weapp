@@ -16,24 +16,26 @@
     </wux-row>
     <block wx:for="{{order_list}}" wx:key="">
       <wux-white-space body-style="height:30rpx" />
-      <view bindtap='goDetail'>
-        <wux-card title="{{item.job}}" extra="{{item.company}} {{item.consultant}}" bordered="{{false}}" thumb="/images/pic.jpg">
+      <view bindtap='goDetail' data-orderid='item.originorder.orderid'>
+        <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/pic.jpg">
           <view slot="body">
             <view class='n200'>用工时间</view>
             <wux-white-space body-style="height:10rpx" />
-            <view>{{item.date}} {{item.period}}</view>
+
+            <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder[0].length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
             <wux-white-space body-style="height:30rpx" />
             <view class='n200'>用工人数</view>
             <wux-white-space body-style="height:10rpx" />
             <view class='card_count'>
-              <view wx:if="{{item.isSex===0}}">
-                <text>{{item.pt_count_yet}}/{{item.pt_count}}</text>
+              <view wx:if="{{item.modifiedorder.length>0?(item.originorder.mode===0):(item.modifiedorder[0].changedmode===0)}}">
+                <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
               </view>
               <view wx:else>
-                <text class='card_count_isSex'>男 {{item.pt_count_male_yet}}/{{item.pt_count_male}}</text>
-                <text>女 {{item.pt_count_female_yet}}/{{item.pt_count_female}}</text>
+                <text class='card_count_isSex'>男 {{item.maleyet}}/{{item.modifiedorder[0].changedmale||item.originorder.male}}</text>
+                <text>女 {{item.femaleyet}}/{{item.modifiedorder[0].changedfemale||item.originorder.female}}</text>
               </view>
             </view>
+
           </view>
           <view class='foot' slot="footer">
             <view class='y200 link'>订单详情

@@ -14,6 +14,14 @@ page {
 .top_card_cen {
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+
+.top_card_cen_bd {
+  width: 100%;
+  position: absolute;
+  top: 45%;
+  border-bottom: solid 1rpx #c8c8c8;
 }
 
 .blank {
@@ -55,7 +63,8 @@ page {
 /* search */
 
 .search {
-  padding: 30rpx;
+  padding: 0 30rpx;
+  position: relative;
 }
 
 .search_p {
@@ -72,8 +81,15 @@ input {
 
 .arrow {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 0;
+  right: 8%;
+  height: 100%;
+}
+
+.arrow_box {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 /* list */
@@ -129,4 +145,10 @@ input {
 .divider_n .wux-divider .wux-divider__text {
   color: #c8c8c8 !important;
   font-weight: normal !important;
+}
+
+/* modified */
+
+.modified {
+  color: #c8c8c8;
 }

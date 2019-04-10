@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/h2-account/login/login",
-    "pages/h2-account/auth/auth",
     "pages/h2-account/home/home",
-    "pages/h2-order/new-order/new-order",
     "pages/h2-order/list-order/list-order",
+    "pages/h2-order/new-order/new-order",
+    "pages/h2-order/prompt-success/prompt-success",
     "pages/h2-order/list-order-detail/list-order-detail",
     "pages/h2-order/modify-order/modify-order",
     "pages/h2-order/history-order/history-order",
@@ -17,8 +17,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "H2Chain Hotel",
-    "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "custom": true,

@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -14,8 +14,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.0",
-	"appid": "wxccd7d7a52024d25e",
-	"projectname": "h2Chain-hotel",
+	"appid": "wx4a6c47241c7d553e",
+	"projectname": "h2Chain-hotel-test",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

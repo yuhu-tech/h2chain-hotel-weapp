@@ -6,22 +6,22 @@
   </view>
   <view class="page__bd">
     <swiper indicator-dots autoplay indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#fff">
-      <block wx:for="{{hotelInfo.banner}}" wx:key="index">
+      <block wx:for="{{hotelInfo.cover}}" wx:key="index">
         <swiper-item>
           <image src="{{item}}" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
-    <view class='text_tip hotel-name'>{{hotelInfo.hotel_name}}</view>
+    <view class='text_tip hotel-name'>{{hotelInfo.name||'-'}}</view>
     <wux-cell-group>
       <wux-white-space body-style='height:20rpx' />
-      <wux-cell thumb="/images/hotel-location.png" title="{{hotelInfo.location}}" hover-class="none"></wux-cell>
-      <wux-cell thumb="/images/hotel-phone.png" title="{{hotelInfo.hotel_phone}}" hover-class="none"></wux-cell>
+      <wux-cell thumb="/images/hotel-location.png" title="{{hotelInfo.address||'-'}}" hover-class="none"></wux-cell>
+      <wux-cell thumb="/images/hotel-phone.png" title="{{hotelInfo.phone||'-'}}" hover-class="none"></wux-cell>
       <wux-white-space body-style='height:20rpx' />
     </wux-cell-group>
     <view>
       <view class='hotel-info-title'>酒店简介</view>
-      <view class='hotel-info-content'>{{hotelInfo.intro}}</view>
+      <view class='hotel-info-content'>{{hotelInfo.introduction||'-'}}</view>
     </view>
   </view>
 </view>

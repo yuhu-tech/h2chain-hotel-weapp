@@ -2,7 +2,7 @@
  * 小程序配置文件
  */
 
-var host = 'http://119.3.106.151:4000';
+const host = 'https://h2chain.yuhu.tech/apiv1/hotel/';
 
 var config = {
 
