@@ -17,7 +17,7 @@
     <wux-white-space body-style='height:30rpx' />
     <view class='select'>
       <view>用人日期</view>
-      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+      <picker mode="date" value="{{value_date}}" bindchange="bindDateChange" start="{{start}}">
         <view class='select_picker'>
           <view wx:if="{{value_date}}">{{value_date}}</view>
           <view wx:else class='n200'>请选择</view>

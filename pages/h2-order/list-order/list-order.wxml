@@ -40,7 +40,7 @@
           <view class='card_line'>
             <view>{{item.modifiedorder[0].date||item.originorder.date}} {{item.modifiedorder[0].time||item.originorder.time}}</view>
             <view class='r200'>
-              <text wx:if="{{item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
+              <text wx:if="{{item.modifiedorder.length>0&&item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
             </view>
           </view>
           <wux-white-space body-style="height:30rpx" />
@@ -48,7 +48,7 @@
           <wux-white-space body-style="height:10rpx" />
           <view class='card_line'>
             <view>
-              <view wx:if="{{item.modifiedorder.length>0?(item.originorder.mode===0):(item.modifiedorder[0].changedmode===0)}}">
+              <view wx:if="{{item.modifiedorder.length>0?(item.modifiedorder[0].changedmode===0):(item.originorder.mode===0)}}">
                 <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
               </view>
               <view wx:else>
@@ -57,7 +57,7 @@
               </view>
             </view>
             <view class='r200'>
-              <text wx:if="{{item.originorder.count!==item.modifiedorder[0].changedcount||item.originorder.male!==item.modifiedorder[0].changedmale||item.originorder.female!==item.modifiedorder[0].changedfemale}}">人数变更</text>
+              <text wx:if="{{item.modifiedorder.length>0&&(item.originorder.count!==item.modifiedorder[0].changedcount||item.originorder.male!==item.modifiedorder[0].changedmale||item.originorder.female!==item.modifiedorder[0].changedfemale)}}">人数变更</text>
             </view>
           </view>
         </view>
@@ -86,7 +86,7 @@
           <view class='card_line'>
             <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder.length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
             <view class='r200'>
-              <text wx:if="{{item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
+              <text wx:if="{{item.modifiedorder.length>0&&item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
             </view>
           </view>
 
@@ -96,7 +96,7 @@
 
           <view class='card_line'>
             <view>
-              <view wx:if="{{item.modifiedorder.length>0?(item.originorder.mode===0):(item.modifiedorder[0].changedmode===0)}}">
+              <view wx:if="{{item.modifiedorder.length>0?(item.modifiedorder[0].changedmode===0):(item.originorder.mode===0)}}">
                 <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
               </view>
               <view wx:else>
@@ -105,7 +105,7 @@
               </view>
             </view>
             <view class='r200'>
-              <text wx:if="{{item.originorder.count!==item.modifiedorder[0].changedcount||item.originorder.male!==item.modifiedorder[0].changedmale||item.originorder.female!==item.modifiedorder[0].changedfemale}}">人数变更</text>
+              <text wx:if="{{item.modifiedorder.length>0&&(item.originorder.count!==item.modifiedorder[0].changedcount||item.originorder.male!==item.modifiedorder[0].changedmale||item.originorder.female!==item.modifiedorder[0].changedfemale)}}">人数变更</text>
             </view>
           </view>
 
@@ -122,7 +122,7 @@
     </view>
   </block>
 
-  <view class='none n200' wx:if="{{order_list.length==0}}">
+  <view class='none n200' wx:if="{{order_list_wait.length===0&&order_list_ing.length===0}}">
     <view class='none_top'>
       <wux-white-space body-style="height:80rpx" />
       <image src='/images/order-none.png' />
@@ -132,7 +132,7 @@
       <text>发布订单招募吧!</text>
       <view class='access access_top' />
       <view class='access' />
-      <wux-white-space body-style="height:80rpx" />
+      <wux-white-space body-style="height:130rpx" />
     </view>
   </view>
   <view wx:else>

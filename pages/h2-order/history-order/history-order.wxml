@@ -27,7 +27,7 @@
             <view class='n200'>用工人数</view>
             <wux-white-space body-style="height:10rpx" />
             <view class='card_count'>
-              <view wx:if="{{item.modifiedorder.length>0?(item.originorder.mode===0):(item.modifiedorder[0].changedmode===0)}}">
+              <view wx:if="{{item.modifiedorder.length>0?(item.modifiedorder[0].changedmode===0):(item.originorder.mode===0)}}">
                 <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
               </view>
               <view wx:else>

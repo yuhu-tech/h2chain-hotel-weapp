@@ -39,7 +39,9 @@ Page({
     }
     gql.query({
       query: `query{
-        search{
+        search(
+          state:12
+        ){
           state
           adviser{
             name
@@ -69,41 +71,32 @@ Page({
         }
       }`
     }).then((res) => {
+      console.log('success', res);
       let tempWait = []
       let tempIng = []
-
-      for (let item of res.search) {
-        let temp = new Date(item.originorder.datetime * 1000)
-        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-        let tempHour = temp.getHours()
-        let tempMinutes = util.formatNumber(temp.getMinutes())
-        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.originorder.duration)}:${tempMinutes}`
-        item.originorder.date = tempdate
-        item.originorder.time = tempTime
-        
-        if (item.modifiedorder.length > 0) {
-          let temp = new Date(item.modifiedorder[0].changeddatetime * 1000)
-          let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-          let tempHour = temp.getHours()
-          let tempMinutes = util.formatNumber(temp.getMinutes())
-          let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.modifiedorder[0].changedduration)}:${tempMinutes}`
-          item.modifiedorder[0].date = tempdate
-          item.modifiedorder[0].time = tempTime
-        }
-
-        if (item.state === 0) {
-          tempWait.push(item)
-        } else {
-          tempIng.push(item)
+      if (res.search.length > 0) {
+        for (let item of res.search) {
+          util.formatItemOrigin(item)
+          if (item.modifiedorder.length > 0) {
+            util.formatItemModify(item)
+          }
+          if (item.state === 0) {
+            tempWait.push(item)
+          } else {
+            tempIng.push(item)
+          }
         }
       }
-      console.log('success', res);
       this.setData({
         order_list_wait: tempWait,
-        order_list_ing: tempIng
+        order_list_ing: tempIng,
+        date: ''
       })
     }).catch((error) => {
       console.log('fail', error);
+      if (error.data.search === null) {
+        return
+      }
       wx.showToast({
         title: '获取失败',
         icon: 'none'
@@ -155,6 +148,7 @@ Page({
     gql.query({
       query: `query{
         search(
+          state:12
           datetime:${Number(timeStamp)}
         ){
           state
@@ -186,27 +180,25 @@ Page({
         }
       }`
     }).then((res) => {
-      for (let item of res.search) {
-        let temp = new Date(item.originorder.datetime * 1000)
-        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-        let tempHour = temp.getHours()
-        let tempMinutes = util.formatNumber(temp.getMinutes())
-        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.originorder.duration)}:${tempMinutes}`
-        item.originorder.date = tempdate
-        item.originorder.time = tempTime
-        if (item.modifiedorder.length > 0) {
-          let temp = new Date(item.modifiedorder[0].changeddatetime * 1000)
-          let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-          let tempHour = temp.getHours()
-          let tempMinutes = util.formatNumber(temp.getMinutes())
-          let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.modifiedorder[0].changedduration)}:${tempMinutes}`
-          item.modifiedorder[0].date = tempdate
-          item.modifiedorder[0].time = tempTime
+      console.log('success', res);
+      let tempWait = []
+      let tempIng = []
+      if (res.search.length > 0) {
+        for (let item of res.search) {
+          util.formatItemOrigin(item)
+          if (item.modifiedorder.length > 0) {
+            util.formatItemModify(item)
+          }
+          if (item.state === 0) {
+            tempWait.push(item)
+          } else {
+            tempIng.push(item)
+          }
         }
       }
-      console.log('success', res);
       this.setData({
-        order_list: res.search
+        order_list_wait: tempWait,
+        order_list_ing: tempIng
       })
     }).catch((error) => {
       console.log('fail', error);

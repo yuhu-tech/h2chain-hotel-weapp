@@ -46,21 +46,21 @@
       <view class='select'>
         <view>男</view>
         <wux-cell>
-          <wux-input type='number' controlled value="{{order.male===0?'':order.male}}" placeholder='请输入' bind:click="iptMale" />
+          <wux-input type='number' controlled value="{{order.male===0?'':order.male}}" placeholder='请输入' bind:change="iptMale" />
         </wux-cell>
       </view>
       <wux-white-space body-style='height:30rpx' />
       <view class='select'>
         <view>女</view>
         <wux-cell>
-          <wux-input type='number' controlled value="{{order.female===0?'':order.female}}" placeholder='请输入' bind:click="iptFemale" />
+          <wux-input type='number' controlled value="{{order.female===0?'':order.female}}" placeholder='请输入' bind:change="iptFemale" />
         </wux-cell>
       </view>
     </view>
     <view wx:else class='select'>
       <view>用人人数</view>
       <wux-cell>
-        <wux-input type='number' controlled value="{{order.count===0?'':order.count}}" placeholder='请输入' bind:click="iptCount" />
+        <wux-input type='number' controlled value="{{order.count===0?'':order.count}}" placeholder='请输入' bind:change="iptCount" />
       </wux-cell>
     </view>
     <wux-white-space body-style='height:30rpx' />

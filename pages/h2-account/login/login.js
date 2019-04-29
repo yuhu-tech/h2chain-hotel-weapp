@@ -123,7 +123,11 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          this.doLogin()
+          wx.login({
+            success: res => {
+              this.doLogin(res.code)
+            }
+          })
         } else {
           this.showModal()
         }
@@ -180,6 +184,7 @@ Page({
         icon: 'success'
       })
       try {
+        wx.setStorageSync('email', this.data.email)
         wx.setStorageSync('token', res.login.token)
         setTimeout(() => {
           wx.switchTab({
@@ -193,7 +198,7 @@ Page({
       if (error.errors[0].message === 'Invalid password') {
         $inToptip().show('密码不正确！')
         wx.hideToast()
-      } else if (error.errors[0].message === "Cannot read property 'password' of undefined") {
+      } else if (error.errors[0].message.startsWith('No such user found for email')) {
         $inToptip().show('账户不正确！')
         wx.hideToast()
       } else {

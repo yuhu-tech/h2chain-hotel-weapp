@@ -1,4 +1,5 @@
 // pages/h2-order/new-order/new-order.js
+var util = require('../../../utils/util.js')
 var gql = require('../../../utils/graphql.js')
 import {
   $inToptip
@@ -10,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    start:'',
     jobArray: [],
     value_job: '',
     value_date: '',
@@ -70,9 +72,11 @@ Page({
       }`
     }).then((res) => {
       console.log('success', res.need);
+      let date = util.formatTime(new Date()).slice(0, 10)
       this.setData({
         jobArray: res.need.occupations,
-        consultant_list: res.need.advisers
+        consultant_list: res.need.advisers,
+        start: date
       })
     }).catch((error) => {
       console.log('fail', error);
@@ -235,9 +239,8 @@ Page({
             datetime: ${timestamp},
             duration: ${Number(this.data.value_duration) + 1},
             mode: ${Number(this.data.isSex)},
-            count: ${Number(this.data.pt_count)},
+            count: ${Number(count)},
             male: ${Number(this.data.pt_count_male)},
-            female: ${Number(this.data.pt_count_female)},
             advisername: "${this.data.consultant}"
           }
         ) {

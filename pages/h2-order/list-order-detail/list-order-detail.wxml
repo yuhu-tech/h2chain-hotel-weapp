@@ -50,7 +50,7 @@
           </view>
         </view>
         <view class='top_card_btn'>
-          <wux-button type='main' bind:click="goModifyOrder">
+          <wux-button type='main' wx:if="{{order_info.state===1}}" bind:click="goModifyOrder">
             <view class='text_btn'>修改订单</view>
           </wux-button>
           <wux-button type='main' bind:click="doCloseOrder">

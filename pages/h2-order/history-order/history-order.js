@@ -33,7 +33,7 @@ Page({
     gql.query({
       query: `query{
         search(
-          state:2
+          state:3
         ){
           state
           adviser{
@@ -65,21 +65,9 @@ Page({
       }`
     }).then((res) => {
       for (let item of res.search) {
-        let temp = new Date(item.originorder.datetime * 1000)
-        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-        let tempHour = temp.getHours()
-        let tempMinutes = util.formatNumber(temp.getMinutes())
-        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.originorder.duration)}:${tempMinutes}`
-        item.originorder.date = tempdate
-        item.originorder.time = tempTime
+        util.formatItemOrigin(item)
         if (item.modifiedorder.length > 0) {
-          let temp = new Date(item.modifiedorder[0].changeddatetime * 1000)
-          let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-          let tempHour = temp.getHours()
-          let tempMinutes = util.formatNumber(temp.getMinutes())
-          let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.modifiedorder[0].changedduration)}:${tempMinutes}`
-          item.modifiedorder[0].date = tempdate
-          item.modifiedorder[0].time = tempTime
+          util.formatItemModify(item)
         }
       }
       console.log('success', res);
@@ -88,6 +76,13 @@ Page({
       })
     }).catch((error) => {
       console.log('fail', error);
+      if (error.data.search === null) {
+        wx.showToast({
+          title: '这里是空的',
+          icon: 'none'
+        })
+        return
+      }
       wx.showToast({
         title: '获取失败',
         icon: 'none'
@@ -138,6 +133,7 @@ Page({
     gql.query({
       query: `query{
         search(
+          state:3
           datetime:${Number(timeStamp)}
         ){
           state
@@ -170,21 +166,9 @@ Page({
       }`
     }).then((res) => {
       for (let item of res.search) {
-        let temp = new Date(item.originorder.datetime * 1000)
-        let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-        let tempHour = temp.getHours()
-        let tempMinutes = util.formatNumber(temp.getMinutes())
-        let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.originorder.duration)}:${tempMinutes}`
-        item.originorder.date = tempdate
-        item.originorder.time = tempTime
+        util.formatItemOrigin(item)
         if (item.modifiedorder.length > 0) {
-          let temp = new Date(item.modifiedorder[0].changeddatetime * 1000)
-          let tempdate = `${util.formatTime(temp).slice(0, 10)}`
-          let tempHour = temp.getHours()
-          let tempMinutes = util.formatNumber(temp.getMinutes())
-          let tempTime = `${util.formatNumber(tempHour)}:${tempMinutes}~${util.formatNumber(tempHour + item.modifiedorder[0].changedduration)}:${tempMinutes}`
-          item.modifiedorder[0].date = tempdate
-          item.modifiedorder[0].time = tempTime
+          util.formatItemModify(item)
         }
       }
       console.log('success', res);

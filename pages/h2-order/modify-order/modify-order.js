@@ -168,12 +168,14 @@ Page({
     this.setData({
       ['order.male']: e.detail.value
     })
+    console.log(this.data.order.male)
   },
 
   iptFemale: function(e) {
     this.setData({
       ['order.female']: e.detail.value
     })
+    console.log(this.data.order.female)
   },
 
   modifyOrder: function() {
