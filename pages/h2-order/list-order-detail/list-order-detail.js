@@ -80,16 +80,49 @@ Page({
           countyet
           maleyet
           femaleyet
+          pt{
+            ptid
+            ptorderstate
+            name
+            idnumber
+            gender
+            wechatname
+            phonenumber
+            worktimes
+          }
         }
       }`
     }).then((res) => {
       console.log('success', res);
+      let temp_list = []
+      let temp_ing = []
+      let temp_wait = []
       util.formatItemOrigin(res.search[0])
-      if (res.search[0].modifiedorder.length > 0) {
+      if (res.search[0].modifiedorder && res.search[0].modifiedorder.length > 0) {
         util.formatItemModify(res.search[0])
       }
+      if (res.search[0].pt && res.search[0].pt.length > 0) {
+        for (let item of res.search[0].pt) {
+          if (item.ptorderstate === 4) {
+            temp_wait.push(item)
+          } else if (item.ptorderstate === 3) {
+            temp_ing.push(item)
+          } else if (item.ptorderstate === 1) {
+            temp_list.push(item)
+          }
+        }
+      }
+      if (temp_list.length === 0 && temp_ing.length === 0 && temp_wait.length === 0) {
+        wx.showToast({
+          title: '还没有人报名',
+          icon: 'none'
+        })
+      }
       this.setData({
-        order_info: res.search[0]
+        order_info: res.search[0],
+        pt_list: temp_list,
+        pt_list_wait: temp_wait,
+        pt_list_ing: temp_ing
       })
     }).catch((error) => {
       console.log('fail', error);

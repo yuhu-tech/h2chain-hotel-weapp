@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    start:'',
+    start: '',
     jobArray: [],
     value_job: '',
     value_date: '',
@@ -193,11 +193,14 @@ Page({
   doPublish: function() {
     /* 计算用人人数 */
     let count = 0
-    if (this.data.isSex === 0) {
-      count = this.data.pt_count
+    if (Number(this.data.isSex) === 0) {
+      console.log('noSex')
+      count = Number(this.data.pt_count)
     } else {
+      console.log('Sex')
       count = Number(this.data.pt_count_male) + Number(this.data.pt_count_female)
     }
+    console.log(count)
     /* 非空检查 */
     if (!this.data.value_job) {
       $inToptip().show('请选择招募职位')
