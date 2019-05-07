@@ -108,7 +108,67 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading();
+    gql.query({
+      query: `query{
+        search(
+          state:3
+        ){
+          state
+          adviser{
+            name
+            companyname
+          }
+          originorder{
+            orderid
+            occupation
+            datetime
+            duration
+            mode
+            count
+            male
+            female
+          }
+          modifiedorder{
+            changeddatetime
+            changedduration
+            changedmode
+            changedcount
+            changedmale
+            changedfemale
+          }
+          countyet
+          maleyet
+          femaleyet
+        }
+      }`
+    }).then((res) => {
+      for (let item of res.search) {
+        util.formatItemOrigin(item)
+        if (item.modifiedorder.length > 0) {
+          util.formatItemModify(item)
+        }
+      }
+      console.log('success', res);
+      this.setData({
+        order_list: res.search
+      })
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+    }).catch((error) => {
+      console.log('fail', error);
+      if (error.data.search === null) {
+        wx.showToast({
+          title: '这里是空的',
+          icon: 'none'
+        })
+        return
+      }
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   /**

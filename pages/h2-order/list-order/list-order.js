@@ -24,7 +24,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    
+
   },
 
   /**
@@ -122,15 +122,86 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    setTimeout(() => {}, 3000)
-    wx.stopPullDownRefresh()
+    wx.showNavigationBarLoading();
+    gql.query({
+      query: `query{
+        search(
+          state:12
+        ){
+          state
+          adviser{
+            name
+            companyname
+          }
+          originorder{
+            orderid
+            occupation
+            datetime
+            duration
+            mode
+            count
+            male
+            female
+          }
+          modifiedorder{
+            changeddatetime
+            changedduration
+            changedmode
+            changedcount
+            changedmale
+            changedfemale
+          }
+          countyet
+          maleyet
+          femaleyet
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      let tempWait = []
+      let tempIng = []
+      if (res.search.length > 0) {
+        for (let item of res.search) {
+          util.formatItemOrigin(item)
+          if (item.modifiedorder.length > 0) {
+            util.formatItemModify(item)
+          }
+          if (item.state === 0) {
+            tempWait.push(item)
+          } else {
+            tempIng.push(item)
+          }
+        }
+      }
+      this.setData({
+        order_list_wait: tempWait,
+        order_list_ing: tempIng,
+        date: ''
+      })
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+    }).catch((error) => {
+      console.log('fail', error);
+      if (error.data.search === null) {
+        return
+      }
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    setTimeout(() => {
+      wx.hideLoading();
+    }, 2000)
   },
 
   /**
