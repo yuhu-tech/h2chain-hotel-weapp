@@ -147,7 +147,8 @@ Page({
 
   bindPickerChange(e) {
     this.setData({
-      index: e.detail.value
+      index: e.detail.value,
+      ['order.duration']: Number(e.detail.value) + 1
     })
   },
 

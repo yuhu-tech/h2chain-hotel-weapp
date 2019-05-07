@@ -26,11 +26,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    setTimeout(() => {
+    /* setTimeout(() => {
       wx.switchTab({
         url: '/pages/h2-order/list-order/list-order',
       })
-    }, 5000)
+    }, 5000) */
   },
 
   /**

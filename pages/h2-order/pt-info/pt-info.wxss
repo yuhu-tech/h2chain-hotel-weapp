@@ -32,7 +32,7 @@ image {
 }
 
 .card_info_text_item {
-  margin-left: 20rpx;
+  margin-right: 20rpx;
 }
 
 /* statistics */

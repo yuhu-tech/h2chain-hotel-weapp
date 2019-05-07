@@ -8,7 +8,7 @@
 <view class='page_btm'>
   <view class='page_btm_box'>
     <text>您可以在订单列表内查看订单详情</text>
-    <text>5s后自动跳转订单列表</text>
+    <!-- <text>5s后自动跳转订单列表</text> -->
     <wux-button bind:click='goBack' type='main'>
       <view class='text_btn'>确认</view>
     </wux-button>

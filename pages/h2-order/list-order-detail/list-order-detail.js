@@ -10,20 +10,8 @@ Page({
   data: {
     orderid: 'default',
     order_info: '',
-    pt_list_confirm: [{
-      id: '1',
-      avatar: '/images/pic.jpg',
-      name: '姓名',
-      gender: '女',
-      nickName: '微信昵称'
-    }],
-    pt_list_notConfirm: [{
-      id: '2',
-      avatar: '/images/pic.jpg',
-      name: '姓名',
-      gender: '女',
-      nickName: '微信昵称'
-    }]
+    pt_list_confirm: [],
+    pt_list_notConfirm: []
   },
 
   /**
@@ -89,6 +77,9 @@ Page({
             wechatname
             phonenumber
             worktimes
+            height
+            weight
+            workhours
           }
         }
       }`
@@ -174,8 +165,62 @@ Page({
     })
   },
 
-  search: function() {
-    console.log('do search')
+  doSearch: function(e) {
+    console.log(e)
+    gql.query({
+      query: `query {
+        search(
+          ptname:"${e.detail.value}"
+        ) {
+          pt{
+            ptid
+            ptorderstate
+            name
+            idnumber
+            gender
+            wechatname
+            phonenumber
+            worktimes
+            height
+            weight
+            workhours
+          }
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      let temp_list = []
+      let temp_ing = []
+      let temp_wait = []
+      if (res.search[0].pt && res.search[0].pt.length > 0) {
+        for (let item of res.search[0].pt) {
+          if (item.ptorderstate === 4) {
+            temp_wait.push(item)
+          } else if (item.ptorderstate === 3) {
+            temp_ing.push(item)
+          } else if (item.ptorderstate === 1) {
+            temp_list.push(item)
+          }
+        }
+      }
+      if (temp_list.length === 0 && temp_ing.length === 0 && temp_wait.length === 0) {
+        wx.showToast({
+          title: '无结果',
+          icon: 'none'
+        })
+      }
+      this.setData({
+        pt_list: temp_list,
+        pt_list_wait: temp_wait,
+        pt_list_ing: temp_ing
+      })
+    }).catch((error) => {
+      console.log('fail', error);
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   goModifyOrder: function() {
@@ -226,7 +271,8 @@ Page({
     })
   },
 
-  goPtInfo: function() {
+  goPtInfo: function(e) {
+    wx.setStorageSync('pt_info', e.currentTarget.dataset.item)
     wx.navigateTo({
       url: '/pages/h2-order/pt-info/pt-info',
     })

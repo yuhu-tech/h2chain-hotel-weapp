@@ -10,7 +10,7 @@ Page({
   data: {
     orderid: 'default',
     order: '',
-    pt_list: [{}, {}, {}, {}, {}, {}, {}, {}, {}, ]
+    pt_list: []
   },
 
   /**
@@ -65,6 +65,19 @@ Page({
           countyet
           maleyet
           femaleyet
+          pt{
+            ptid
+            ptorderstate
+            name
+            idnumber
+            gender
+            wechatname
+            phonenumber
+            worktimes
+            height
+            weight
+            workhours
+          }
         }
       }`
     }).then((res) => {
@@ -74,7 +87,8 @@ Page({
         util.formatItemOrigin(res.search[0])
       }
       this.setData({
-        order: res.search[0]
+        order: res.search[0],
+        pt_list: res.search[0].pt
       })
     }).catch((error) => {
       console.log('fail', error);
@@ -130,7 +144,8 @@ Page({
     console.log('do search')
   },
 
-  goPtInfo: function() {
+  goPtInfo: function(e) {
+    wx.setStorageSync('pt_info', e.currentTarget.dataset.item)
     wx.navigateTo({
       url: '/pages/h2-order/pt-info/pt-info',
     })

@@ -62,15 +62,15 @@
     </wux-row>
     <block wx:for="{{pt_list}}" wx:key="">
       <wux-row>
-        <view class='list' bindtap='goPtInfo'>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/pic.jpg' />
-              <view class='list_card_name'>姓名</view>
-              <view>女</view>
+              <image class='list_card_avatar' src='/images/avatar.png' />
+              <view class='list_card_name'>{{item.name}}</view>
+              <view>{{item.gender===1?'男':'nv'}}</view>
             </view>
             <view class='list_card_r n200'>
-              <view class='text_min'>这里显示微信昵称</view>
+              <!-- <view class='text_min'>这里显示微信昵称</view> -->
               <view class='link_arrow'>
                 <wux-icon type="ios-arrow-forward" size='20' />
               </view>

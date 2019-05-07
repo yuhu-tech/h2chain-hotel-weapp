@@ -16,8 +16,8 @@
     </wux-row>
     <block wx:for="{{order_list}}" wx:key="">
       <wux-white-space body-style="height:30rpx" />
-      <view bindtap='goDetail' data-orderid='item.originorder.orderid'>
-        <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/pic.jpg">
+      <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
+        <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/avatar.png">
           <view slot="body">
             <view class='n200'>用工时间</view>
             <wux-white-space body-style="height:10rpx" />

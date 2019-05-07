@@ -47,7 +47,7 @@
         </view>
       </picker>
     </view>
-    <wux-white-space body-style='height:30rpx' />
+    <wux-white-space body-style='height:45rpx' />
     <view class='select_radio'>
       <view class='select_radio_label'>性别自定义</view>
       <radio-group class="radio-group" bindchange="radioChange">
@@ -78,7 +78,7 @@
         <wux-input type='number' placeholder='请输入' bind:change="iptPtCount" />
       </wux-cell>
     </view>
-    <wux-white-space body-style='height:30rpx' />
+    <wux-white-space body-style='height:35rpx' />
     <view class='select_radio'>
       <view class='select_radio_label'>选择顾问</view>
       <radio-group class="radio-group" bindchange="radioChangeCons">

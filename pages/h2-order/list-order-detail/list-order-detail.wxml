@@ -50,7 +50,7 @@
           </view>
         </view>
         <view class='top_card_btn'>
-          <wux-button type='main' wx:if="{{order_info.state===1}}" bind:click="goModifyOrder">
+          <wux-button type='main' wx:if="{{order_info.state===1&&order_info.modifiedorder.length===0}}" bind:click="goModifyOrder">
             <view class='text_btn'>修改订单</view>
           </wux-button>
           <wux-button type='main' bind:click="doCloseOrder">
@@ -63,8 +63,7 @@
     <wux-row>
       <wux-white-space body-style="height:30rpx" />
       <view class='search n200'>
-        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='search'>
-        </input>
+        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='doSearch' bindinput='doSearch' />
         <view class='arrow'>
           <view class='arrow_box'>
             <wux-icon type='md-arrow-dropdown' />
@@ -78,15 +77,15 @@
     </view>
     <block wx:for="{{pt_list_wait}}" wx:key="">
       <wux-row>
-        <view class='list' bindtap='goPtInfo'>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/pic.jpg' />
+              <image class='list_card_avatar' src='/images/avatar.png' />
               <view class='list_card_name'>{{item.name}}</view>
-              <view>{{item.gender}}</view>
+              <view>{{item.gender===1?'男':'女'}}</view>
             </view>
             <view class='list_card_r n200'>
-              <view class='text_min'>{{item.nickName}}</view>
+              <!-- <view class='text_min'>{{item.nickName}}</view> -->
               <view class='link_arrow'>
                 <wux-icon type="ios-arrow-forward" size='20' />
               </view>
@@ -102,15 +101,15 @@
     </view>
     <block wx:for="{{pt_list_ing}}" wx:key="">
       <wux-row>
-        <view class='list' bindtap='goPtInfo'>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/pic.jpg' />
+              <image class='list_card_avatar' src='/images/avatar.png' />
               <view class='list_card_name'>{{item.name}}</view>
-              <view>{{item.gender}}</view>
+              <view>{{item.gender===1?'男':'女'}}</view>
             </view>
             <view class='list_card_r n200'>
-              <view class='text_min'>{{item.nickName}}</view>
+              <!-- <view class='text_min'>{{item.nickName}}</view> -->
               <view class='link_arrow'>
                 <wux-icon type="ios-arrow-forward" size='20' />
               </view>
@@ -123,11 +122,11 @@
 
     <block wx:for="{{pt_list}}" wx:key="">
       <wux-row>
-        <view class='list' bindtap='goPtInfo'>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
           <wux-white-space body-style="height:30rpx" />
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/pic.jpg' />
+              <image class='list_card_avatar' src='/images/avatar.png' />
               <view class='list_card_name'>{{item.name}}</view>
               <view>{{item.gender===1?'男':'女'}}</view>
             </view>

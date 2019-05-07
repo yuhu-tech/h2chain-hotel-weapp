@@ -33,14 +33,14 @@
       <wux-divider position="right" text="待接单" wx:if="{{index===0}}" />
     </view>
     <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
-      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/pic.jpg">
+      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/avatar.png">
         <view slot="body">
           <view class='n200'>用工时间</view>
           <wux-white-space body-style="height:10rpx" />
           <view class='card_line'>
             <view>{{item.modifiedorder[0].date||item.originorder.date}} {{item.modifiedorder[0].time||item.originorder.time}}</view>
             <view class='r200'>
-              <text wx:if="{{item.modifiedorder.length>0&&item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
+              <text wx:if="{{item.modifiedorder.length>0&&item.modifiedorder[0].time!==item.originorder.time}}">时间变更</text>
             </view>
           </view>
           <wux-white-space body-style="height:30rpx" />
@@ -78,7 +78,7 @@
       <wux-divider position="right" text="招募中" wx:if="{{index===0}}" />
     </view>
     <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
-      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/pic.jpg">
+      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/avatar.png">
         <view slot="body">
           <view class='n200'>用工时间</view>
           <wux-white-space body-style="height:10rpx" />
@@ -86,7 +86,7 @@
           <view class='card_line'>
             <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder.length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
             <view class='r200'>
-              <text wx:if="{{item.modifiedorder.length>0&&item.modifiedorder[0].date!==item.originorder.date}}">时间变更</text>
+              <text wx:if="{{item.modifiedorder.length>0&&(item.modifiedorder[0].time!==item.originorder.time)}}">时间变更</text>
             </view>
           </view>
 
