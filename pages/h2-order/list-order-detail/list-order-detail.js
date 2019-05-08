@@ -170,7 +170,8 @@ Page({
     gql.query({
       query: `query {
         search(
-          ptname:"${e.detail.value}"
+          orderid:"${this.data.orderid}"
+          ${e.detail.value ? `ptname: "${e.detail.value}"` : ''}
         ) {
           pt{
             ptid

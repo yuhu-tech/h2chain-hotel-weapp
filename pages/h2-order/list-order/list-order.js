@@ -197,7 +197,7 @@ Page({
    */
   onReachBottom: function() {
     wx.showLoading({
-      title: '玩命加载中',
+      title: '加载中',
     })
     setTimeout(() => {
       wx.hideLoading();
