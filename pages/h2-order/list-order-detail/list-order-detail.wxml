@@ -38,8 +38,6 @@
           </view>
         </view>
 
-
-
         <wux-white-space body-style="height:10rpx" />
         <view class='top_card_btm text_min'>
           <text>{{order_info.adviser.companyname}}</text>
@@ -60,6 +58,7 @@
       </view>
     </wux-row>
 
+    <!-- search bar -->
     <wux-row>
       <wux-white-space body-style="height:30rpx" />
       <view class='search n200'>

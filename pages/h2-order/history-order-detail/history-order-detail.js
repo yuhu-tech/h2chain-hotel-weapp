@@ -140,8 +140,47 @@ Page({
     })
   },
 
-  search: function() {
-    console.log('do search')
+  doSearch: function(e) {
+    console.log(e)
+    gql.query({
+      query: `query {
+        search(
+          orderid:"${this.data.orderid}"
+          ${e.detail.value ? `ptname: "${e.detail.value}"`:''}
+        ) {
+          pt{
+            ptid
+            ptorderstate
+            name
+            idnumber
+            gender
+            wechatname
+            phonenumber
+            worktimes
+            height
+            weight
+            workhours
+          }
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      if (!res.search[0].pt || res.search[0].pt.length === 0) {
+        wx.showToast({
+          title: '无结果',
+          icon: 'none'
+        })
+      }
+      this.setData({
+        pt_list: res.search[0].pt
+      })
+    }).catch((error) => {
+      console.log('fail', error);
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    });
   },
 
   goPtInfo: function(e) {

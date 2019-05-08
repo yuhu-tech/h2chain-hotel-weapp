@@ -22,7 +22,7 @@
             <view class='n200'>用工时间</view>
             <wux-white-space body-style="height:10rpx" />
 
-            <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder[0].length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
+            <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder.length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
             <wux-white-space body-style="height:30rpx" />
             <view class='n200'>用工人数</view>
             <wux-white-space body-style="height:10rpx" />

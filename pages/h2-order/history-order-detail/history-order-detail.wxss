@@ -120,3 +120,8 @@ input {
   color: #c8c8c8;
   position: relative;
 }
+
+.none_tip {
+  text-align: center;
+  margin-top: 50rpx;
+}

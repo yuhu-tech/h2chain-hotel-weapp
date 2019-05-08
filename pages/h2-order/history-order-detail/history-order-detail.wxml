@@ -1,11 +1,12 @@
 <!--pages/h2-order/history-order-detail/history-order-detail.wxml-->
 <view class='page'>
   <view class='page_bd'>
+
+    <!-- top info -->
     <wux-row>
       <view class='top_card'>
         <view>{{order.originorder.occupation}}</view>
         <wux-white-space body-style="height:10rpx" />
-
         <view class='modified' wx:if="{{order.modifiedorder.length>0}}">
           <view class='top_card_cen'>
             <view>
@@ -22,7 +23,6 @@
           </view>
           <view class='top_card_cen_bd' />
         </view>
-
         <view class='top_card_cen'>
           <view>
             <text>{{order.modifiedorder[0].date||order.originorder.date}}</text>
@@ -36,8 +36,6 @@
             <text class='blank'>{{order.femaleyet}}/{{order.modifiedorder[0].changedfemale||order.originorder.female}} 女</text>
           </view>
         </view>
-
-
         <wux-white-space body-style="height:10rpx" />
         <view class='top_card_btm text_min'>
           <text>{{order.adviser.companyname}}</text>
@@ -49,10 +47,11 @@
         </view>
       </view>
     </wux-row>
+
+    <!-- search bar -->
     <wux-row>
       <view class='search n200'>
-        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='search'>
-        </input>
+        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='doSearch' bindinput='doSearch' />
         <view class='arrow'>
           <view class='arrow_box'>
             <wux-icon type='md-arrow-dropdown' />
@@ -60,6 +59,8 @@
         </view>
       </view>
     </wux-row>
+
+    <!-- pt list -->
     <block wx:for="{{pt_list}}" wx:key="">
       <wux-row>
         <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
@@ -80,5 +81,9 @@
         </view>
       </wux-row>
     </block>
+    <view class='none_tip n200' wx:if="{{!pt_list.length>0}}">
+      没有报名信息
+    </view>
+
   </view>
 </view>
