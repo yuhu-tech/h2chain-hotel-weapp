@@ -1,0 +1,79 @@
+/**app.wxss**/
+@import "colorui.wxss";
+
+page {
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30rpx;
+  color: #323232;
+}
+
+.y200 {
+  color: #d7a646;
+}
+
+.y100 {
+  color: #dcc494;
+}
+
+.n200 {
+  color: #c8c8c8;
+}
+
+.r200 {
+  color: #ff482c;
+}
+
+.text_title {
+  font-size: 20pt;
+}
+
+.text_tip {
+  font-size: 14pt;
+}
+
+.text_min {
+  font-size: 11pt;
+}
+
+/* ----------wux---------- */
+
+.wux-input {
+  border-bottom: solid 1rpx #eee;
+  padding: 20rpx 0;
+}
+
+.wux-button {
+  min-height: 70rpx !important;
+  line-height: normal !important;
+  height: 70rpx;
+  font-size: 30rpx;
+}
+
+.text_btn {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wux-button--main {
+  background-color: #d7a646 !important;
+  color: #fff !important;
+}
+
+.wux-button--main.wux-button--outline,
+.wux-button--main.wux-button--outline.wux-button--disabled {
+  border-color: #d7a646 !important;
+  background-color: transparent !important;
+  color: #d7a646 !important;
+}
+
+.wux-button--main.wux-button--hover {
+  background-color: #cca100 !important;
+  color: #fff !important;
+}
+
+.input-placeholder {
+  color: #c8c8c8;
+}

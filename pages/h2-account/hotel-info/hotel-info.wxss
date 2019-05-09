@@ -1,0 +1,39 @@
+/* pages/h2-account/hotel-info/hotel-info.wxss */
+
+swiper {
+  height: 400rpx;
+}
+
+.slide-image {
+  width: 100%;
+}
+
+.hotel-name {
+  padding: 40rpx;
+}
+
+.wux-cell-group {
+  padding: 0 20rpx;
+}
+
+.wux-cell {
+  padding: 20rpx !important;
+}
+
+.wux-cell::after {
+  border-bottom: none !important;
+  padding: 20rpx !important;
+}
+
+.wux-cell__thumb {
+  margin-right: 20rpx !important;
+}
+
+.hotel-info-title {
+  padding: 40rpx 40rpx 30rpx;
+}
+
+.hotel-info-content {
+  padding: 0 60rpx;
+  color: #969696;
+}

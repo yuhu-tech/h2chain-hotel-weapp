@@ -1,0 +1,154 @@
+/* pages/h2-order/list-order-detail/list-order-detail.wxss */
+
+page {
+  background-color: #f5f5f5;
+}
+
+/* card */
+
+.top_card {
+  padding: 30rpx 40rpx;
+  background-color: #fff;
+}
+
+.top_card_cen {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.top_card_cen_bd {
+  width: 100%;
+  position: absolute;
+  top: 45%;
+  border-bottom: solid 1rpx #c8c8c8;
+}
+
+.blank {
+  margin-left: 20rpx;
+}
+
+.top_card_btm {
+  display: flex;
+}
+
+.top_card_btm_name {
+  margin: 0 20rpx;
+}
+
+.top_card_btm_phone {
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  border-left: solid 1rpx #eee;
+}
+
+.img_phone {
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.top_card_btn {
+  padding-top: 30rpx;
+  margin-top: 30rpx;
+  border-top: solid 1rpx #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wux-button {
+  margin-left: 30rpx !important;
+}
+
+/* search */
+
+.search {
+  padding: 0 30rpx;
+  position: relative;
+}
+
+.search_p {
+  text-align: center;
+}
+
+input {
+  background-color: #ececec;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  right: 8%;
+  height: 100%;
+}
+
+.arrow_box {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* list */
+
+.list {
+  padding: 0 30rpx;
+}
+
+.list_card {
+  padding: 20rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+
+.list_card_avatar {
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 10%;
+}
+
+.list_card_l, .list_card_r {
+  display: flex;
+  align-items: center;
+}
+
+.list_card_name {
+  width: 120rpx;
+  margin-left: 50rpx;
+}
+
+.link_arrow {
+  margin-top: 5rpx;
+  margin-left: 20rpx;
+}
+
+/* divider */
+
+.wux-divider--text-right:before {
+  width: 100% !important;
+}
+
+.wux-divider--text-right:after {
+  width: 100% !important;
+}
+
+.divider_r .wux-divider .wux-divider__text {
+  color: red !important;
+  font-weight: normal !important;
+}
+
+.divider_n .wux-divider .wux-divider__text {
+  color: #c8c8c8 !important;
+  font-weight: normal !important;
+}
+
+/* modified */
+
+.modified {
+  color: #c8c8c8;
+}

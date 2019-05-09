@@ -1,0 +1,112 @@
+/* pages/h2-order/modify-order/modify-order.wxss */
+
+page {
+  padding: 0 40rpx;
+  height: 100%;
+}
+
+.page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select .wux-cell {
+  width: 500rpx;
+}
+
+.select .placeholder {
+  color: #c8c8c8;
+}
+
+picker {
+  box-sizing: border-box;
+  width: 470rpx;
+  padding: 20rpx 30rpx 20rpx 0rpx;
+  margin-left: 30rpx;
+  border-bottom: solid 1rpx #ececec;
+}
+
+.select_picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.access {
+  height: 12rpx;
+  width: 12rpx;
+  border-width: 4rpx 4rpx 0 0;
+  border-color: #c8c8cd;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  margin-right: 4rpx;
+}
+
+.select_radio {
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-group {
+  width: 500rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.wux-input {
+  border: none;
+  padding: 0;
+}
+
+image {
+  width: 35rpx;
+  height: 35rpx;
+  margin-left: 20rpx;
+  padding-left: 20rpx;
+  border-left: solid 1rpx #c8c8c8;
+  box-sizing: content-box;
+}
+
+.radio_col {
+  display: flex;
+  align-items: center;
+}
+
+.radio_tip {
+  margin-left: 60rpx;
+  color: #c8c8c8;
+  font-size: 10pt;
+}
+
+.wux-button {
+  width: 500rpx;
+}
+
+/* modify */
+
+.disabled_label {
+  opacity: 0.3;
+}
+
+.disabled_radio {
+  display: flex;
+  flex-direction: column;
+  opacity: 0.3;
+}
+
+/* page_ft */
+
+.page_ft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

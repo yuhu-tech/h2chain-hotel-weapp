@@ -1,0 +1,51 @@
+<!--pages/h2-order/history-order/history-order.wxml-->
+<wux-calendar id="calendar_date" />
+
+<view class='page'>
+  <view class='page_bd'>
+    <wux-row>
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class='picker'>
+          <view></view>
+          <view>{{date?date:'选择用工日期'}}</view>
+          <view class='arrow'>
+            <wux-icon type='md-arrow-dropdown' />
+          </view>
+        </view>
+      </picker>
+    </wux-row>
+    <block wx:for="{{order_list}}" wx:key="">
+      <wux-white-space body-style="height:30rpx" />
+      <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
+        <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/avatar.png">
+          <view slot="body">
+            <view class='n200'>用工时间</view>
+            <wux-white-space body-style="height:10rpx" />
+
+            <view>{{item.modifiedorder.length>0?item.modifiedorder[0].date:item.originorder.date}} {{item.modifiedorder.length>0?item.modifiedorder[0].time:item.originorder.time}}</view>
+            <wux-white-space body-style="height:30rpx" />
+            <view class='n200'>用工人数</view>
+            <wux-white-space body-style="height:10rpx" />
+            <view class='card_count'>
+              <view wx:if="{{item.modifiedorder.length>0?(item.modifiedorder[0].changedmode===0):(item.originorder.mode===0)}}">
+                <text>{{item.countyet}}/{{item.modifiedorder[0].changedcount||item.originorder.count}}</text>
+              </view>
+              <view wx:else>
+                <text class='card_count_isSex'>男 {{item.maleyet}}/{{item.modifiedorder[0].changedmale||item.originorder.male}}</text>
+                <text>女 {{item.femaleyet}}/{{item.modifiedorder[0].changedfemale||item.originorder.female}}</text>
+              </view>
+            </view>
+
+          </view>
+          <view class='foot' slot="footer">
+            <view class='y200 link'>订单详情
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+        </wux-card>
+      </view>
+    </block>
+  </view>
+</view>

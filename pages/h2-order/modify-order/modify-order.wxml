@@ -1,0 +1,84 @@
+<!--pages/h2-order/modify-order/modify-order.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view class='disabled_label'>招募职位</view>
+      <wux-cell title="{{order.occupation}}" disabled></wux-cell>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view class='disabled_label'>用人日期</view>
+      <wux-cell title="{{date}}" disabled></wux-cell>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view>开始时间</view>
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <view class='select_picker'>
+          <view>{{value_start}}</view>
+          <view class='access' />
+        </view>
+      </picker>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select'>
+      <view>用人时长</view>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class='select_picker'>
+          <view wx:if="{{index>=0}}">{{array[index]}}</view>
+          <view wx:else class='n200'>请选择</view>
+          <view class='access'></view>
+        </view>
+      </picker>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select_radio'>
+      <view class='select_radio_label'>性别自定义</view>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{items}}" wx:key="">
+          <radio value="{{item.value}}" checked="{{item.checked}}" color='#ffb342' />{{item.name}}
+        </label>
+      </radio-group>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view wx:if="{{order.mode==1}}">
+      <view class='select'>
+        <view>男</view>
+        <wux-cell>
+          <wux-input type='number' controlled value="{{order.male===0?'':order.male}}" placeholder='请输入' bind:change="iptMale" />
+        </wux-cell>
+      </view>
+      <wux-white-space body-style='height:30rpx' />
+      <view class='select'>
+        <view>女</view>
+        <wux-cell>
+          <wux-input type='number' controlled value="{{order.female===0?'':order.female}}" placeholder='请输入' bind:change="iptFemale" />
+        </wux-cell>
+      </view>
+    </view>
+    <view wx:else class='select'>
+      <view>用人人数</view>
+      <wux-cell>
+        <wux-input type='number' controlled value="{{order.count===0?'':order.count}}" placeholder='请输入' bind:change="iptCount" />
+      </wux-cell>
+    </view>
+    <wux-white-space body-style='height:30rpx' />
+    <view class='select_radio'>
+      <view class='select_radio_label disabled_label'>选择顾问</view>
+      <view class='radio-group disabled_radio'>
+        <view>
+          <text>{{adviser.name}}</text>
+          <image src='/images/order-phone.png' bindtap='doCall' />
+        </view>
+        <view>{{adviser.companyname}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='page_ft'>
+    <wux-button type='main' bind:click="modifyOrder">
+      <view class='text_btn'>发布</view>
+    </wux-button>
+    <wux-white-space body-style='height:50rpx' />
+  </view>
+</view>

@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "wux-white-space": "wux-weapp/white-space",
+    "wux-cell": "wux-weapp/cell",
+    "wux-calendar": "wux-weapp/calendar",
+    "wux-icon": "wux-weapp/icon",
+    "wux-input": "wux-weapp/input",
+    "wux-button": "wux-weapp/button",
+    "toptip": "/components/toptip/toptip"
+  },
+  "navigationBarTitleText": "新建订单"
+}

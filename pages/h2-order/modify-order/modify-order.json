@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "wux-white-space": "wux-weapp/white-space",
+    "wux-cell-group": "wux-weapp/cell-group",
+    "wux-cell": "wux-weapp/cell",
+    "wux-select": "wux-weapp/select",
+    "wux-calendar": "wux-weapp/calendar",
+    "wux-icon": "wux-weapp/icon",
+    "wux-input": "wux-weapp/input",
+    "wux-button": "wux-weapp/button"
+  },
+  "navigationBarTitleText": "修改订单"
+}

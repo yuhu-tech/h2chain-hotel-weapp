@@ -1,0 +1,146 @@
+<!--pages/h2-order/list-order-detail/list-order-detail.wxml-->
+<view class='page'>
+  <view class='page_bd'>
+    <wux-row>
+      <view class='top_card'>
+        <view>{{order_info.originorder.occupation}}</view>
+
+        <view class='modified' wx:if="{{order_info.modifiedorder.length>0}}">
+          <wux-white-space body-style="height:10rpx" />
+          <view class='top_card_cen'>
+            <view>
+              <text>{{order_info.originorder.date}}</text>
+              <text class='blank'>{{order_info.originorder.time}}</text>
+            </view>
+            <view wx:if="{{order_info.originorder.mode===0}}">
+              <text>{{order_info.countyet}}/{{order_info.originorder.count}}</text>
+            </view>
+            <view wx:else>
+              <text>{{order_info.maleyet}}/{{order_info.originorder.male}} 男</text>
+              <text class='blank'>{{order_info.femaleyet}}/{{order_info.originorder.female}} 女</text>
+            </view>
+            <view class='top_card_cen_bd' />
+          </view>
+        </view>
+
+        <wux-white-space body-style="height:10rpx" />
+        <view class='top_card_cen'>
+          <view>
+            <text>{{order_info.modifiedorder[0].date||order_info.originorder.date}}</text>
+            <text class='blank'>{{order_info.modifiedorder[0].time||order_info.originorder.time}}</text>
+          </view>
+          <view wx:if="{{order_info.modifiedorder.length>0?(order_info.modifiedorder[0].changedmode===0):(order_info.originorder.mode===0)}}">
+            <text>{{order_info.countyet}}/{{order_info.modifiedorder[0].changedcount||order_info.originorder.count}}</text>
+          </view>
+          <view wx:else>
+            <text>{{order_info.maleyet}}/{{order_info.modifiedorder[0].changedmale||order_info.originorder.male}} 男</text>
+            <text class='blank'>{{order_info.femaleyet}}/{{order_info.modifiedorder[0].changedfemale||order_info.originorder.female}} 女</text>
+          </view>
+        </view>
+
+        <wux-white-space body-style="height:10rpx" />
+        <view class='top_card_btm text_min'>
+          <text>{{order_info.adviser.companyname}}</text>
+          <text class='top_card_btm_name'>{{order_info.adviser.name}}</text>
+          <view class='top_card_btm_phone'>
+            <image class='img_phone' src='/images/order-phone.png' />
+            <text class='y200' bindtap='doCall'>立刻联系</text>
+          </view>
+        </view>
+        <view class='top_card_btn'>
+          <wux-button type='main' wx:if="{{order_info.state===1&&order_info.modifiedorder.length===0}}" bind:click="goModifyOrder">
+            <view class='text_btn'>修改订单</view>
+          </wux-button>
+          <wux-button type='main' bind:click="doCloseOrder">
+            <view class='text_btn'>关闭订单</view>
+          </wux-button>
+        </view>
+      </view>
+    </wux-row>
+
+    <!-- search bar -->
+    <wux-row>
+      <wux-white-space body-style="height:30rpx" />
+      <view class='search n200'>
+        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='doSearch' bindinput='doSearch' />
+        <view class='arrow'>
+          <view class='arrow_box'>
+            <wux-icon type='md-arrow-dropdown' />
+          </view>
+        </view>
+      </view>
+    </wux-row>
+
+    <view class='divider_r' wx:if="{{pt_list_wait.length>0}}">
+      <wux-divider position="right" text="待确认" />
+    </view>
+    <block wx:for="{{pt_list_wait}}" wx:key="">
+      <wux-row>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
+          <view class='list_card'>
+            <view class='list_card_l'>
+              <image class='list_card_avatar' src='/images/avatar.png' />
+              <view class='list_card_name'>{{item.name}}</view>
+              <view>{{item.gender===1?'男':'女'}}</view>
+            </view>
+            <view class='list_card_r n200'>
+              <!-- <view class='text_min'>{{item.nickName}}</view> -->
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+          <wux-white-space body-style="height:30rpx" />
+        </view>
+      </wux-row>
+    </block>
+
+    <view class='divider_n' wx:if="{{pt_list_ing.length>0}}">
+      <wux-divider position="right" text="已确认" />
+    </view>
+    <block wx:for="{{pt_list_ing}}" wx:key="">
+      <wux-row>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
+          <view class='list_card'>
+            <view class='list_card_l'>
+              <image class='list_card_avatar' src='/images/avatar.png' />
+              <view class='list_card_name'>{{item.name}}</view>
+              <view>{{item.gender===1?'男':'女'}}</view>
+            </view>
+            <view class='list_card_r n200'>
+              <!-- <view class='text_min'>{{item.nickName}}</view> -->
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+          <wux-white-space body-style="height:30rpx" wx:if="{{index!==pt_list_confirm.length-1}}" />
+        </view>
+      </wux-row>
+    </block>
+
+    <block wx:for="{{pt_list}}" wx:key="">
+      <wux-row>
+        <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
+          <wux-white-space body-style="height:30rpx" />
+          <view class='list_card'>
+            <view class='list_card_l'>
+              <image class='list_card_avatar' src='/images/avatar.png' />
+              <view class='list_card_name'>{{item.name}}</view>
+              <view>{{item.gender===1?'男':'女'}}</view>
+            </view>
+            <view class='list_card_r n200'>
+              <view class='text_min'>
+                <!-- {{item.nickName}} -->
+              </view>
+              <view class='link_arrow'>
+                <wux-icon type="ios-arrow-forward" size='20' />
+              </view>
+            </view>
+          </view>
+        </view>
+      </wux-row>
+    </block>
+
+  </view>
+</view>

@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "wux-white-space": "wux-weapp/white-space",
+    "wux-calendar": "wux-weapp/calendar",
+    "wux-icon": "wux-weapp/icon",
+    "wux-row": "wux-weapp/row",
+    "wux-card": "wux-weapp/card"
+  },
+  "navigationBarTitleText": "历史订单"
+}
