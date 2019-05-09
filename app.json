@@ -34,8 +34,8 @@
     ]
   },
   "networkTimeout": {
-    "request": 10000,
-    "downloadFile": 10000
+    "request": 5000,
+    "downloadFile": 5000
   },
   "sitemapLocation": "sitemap.json"
 }
