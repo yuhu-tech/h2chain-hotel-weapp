@@ -71,7 +71,7 @@
       </view>
     </wux-row>
 
-    <view class='divider_r' wx:if="{{pt_list_wait.length>0}}">
+    <view class='divider_n' wx:if="{{pt_list_wait.length>0}}">
       <wux-divider position="right" text="待确认" />
     </view>
     <block wx:for="{{pt_list_wait}}" wx:key="">

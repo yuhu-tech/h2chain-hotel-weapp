@@ -29,7 +29,7 @@
   </wxs> -->
 
   <block wx:for="{{order_list_wait}}" wx:key="">
-    <view class='divider_r'>
+    <view class='divider_n'>
       <wux-divider position="right" text="待接单" wx:if="{{index===0}}" />
     </view>
     <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>

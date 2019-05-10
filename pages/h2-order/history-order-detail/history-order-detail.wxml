@@ -68,7 +68,7 @@
             <view class='list_card_l'>
               <image class='list_card_avatar' src='/images/avatar.png' />
               <view class='list_card_name'>{{item.name}}</view>
-              <view>{{item.gender===1?'男':'nv'}}</view>
+              <view>{{item.gender===1?'男':'女'}}</view>
             </view>
             <view class='list_card_r n200'>
               <!-- <view class='text_min'>这里显示微信昵称</view> -->

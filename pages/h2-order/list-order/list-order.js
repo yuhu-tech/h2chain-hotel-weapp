@@ -196,12 +196,12 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    wx.showLoading({
+    /* wx.showLoading({
       title: '加载中',
     })
     setTimeout(() => {
       wx.hideLoading();
-    }, 2000)
+    }, 2000) */
   },
 
   /**

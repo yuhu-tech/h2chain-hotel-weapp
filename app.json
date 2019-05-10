@@ -17,8 +17,7 @@
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "H2Chain Hotel",
-    "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "custom": true,
@@ -34,8 +33,8 @@
     ]
   },
   "networkTimeout": {
-    "request": 5000,
-    "downloadFile": 5000
+    "request": 10000,
+    "downloadFile": 10000
   },
   "sitemapLocation": "sitemap.json"
 }
