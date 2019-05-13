@@ -179,7 +179,7 @@ Page({
     console.log(this.data.order.female)
   },
 
-  modifyOrder: function() {
+  modifyOrder: function(e) {
     let order = this.data.order
     let timestamp = new Date(`${this.data.date} ${this.data.value_start}:00`.replace(/-/g, '/')).getTime() / 1000
     if (Number(order.mode) === 1) {
@@ -189,6 +189,7 @@ Page({
     gql.mutate({
       mutation: `mutation {
         modifyorder(
+          formid:"${e.detail.formId}"
           modifiedorder: {
             orderid:"${order.orderid}"
             changeddatetime:${Number(timestamp)}

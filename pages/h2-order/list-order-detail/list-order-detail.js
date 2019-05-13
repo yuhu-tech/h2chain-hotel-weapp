@@ -238,7 +238,7 @@ Page({
     })
   },
 
-  doCloseOrder: function() {
+  doCloseOrder: function(e) {
     wx.showModal({
       title: '提示',
       content: '是否要关闭订单？',
@@ -247,6 +247,7 @@ Page({
           gql.mutate({
             mutation: `mutation{
               closeorder(
+                formid:"${e.detail.formId}"
                 orderid:"${this.data.order_info.originorder.orderid}"
               ){
                 orderid

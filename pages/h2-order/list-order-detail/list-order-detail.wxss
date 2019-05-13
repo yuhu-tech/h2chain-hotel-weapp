@@ -56,7 +56,7 @@ page {
   justify-content: flex-end;
 }
 
-.wux-button {
+.form_button {
   margin-left: 30rpx !important;
 }
 

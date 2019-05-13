@@ -76,9 +76,11 @@
     </view>
   </view>
   <view class='page_ft'>
-    <wux-button type='main' bind:click="modifyOrder">
-      <view class='text_btn'>发布</view>
-    </wux-button>
+    <form report-submit='true' report-submit-timeout='10000' bindsubmit='modifyOrder'>
+      <button class='form_button' hover-class='form_button_hover' form-type='submit'>
+        <view class='text_btn'>发布</view>
+      </button>
+    </form>
     <wux-white-space body-style='height:50rpx' />
   </view>
 </view>
