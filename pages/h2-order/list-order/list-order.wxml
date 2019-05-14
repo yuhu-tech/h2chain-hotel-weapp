@@ -1,4 +1,5 @@
 <!--pages/h2-order/list-order/list-order.wxml-->
+<guide id="inGuide" />
 
 <view class='page'>
 
