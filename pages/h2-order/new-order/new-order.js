@@ -38,7 +38,8 @@ Page({
     pt_count_female: 0,
     isSex: 0,
     consultant_list: [],
-    consultant: ''
+    consultant: '',
+    isDisabled: false
   },
 
   /**
@@ -228,6 +229,9 @@ Page({
       $inToptip().show('请选择顾问')
       return
     }
+    this.setData({
+      isDisabled: true
+    })
     var timestamp = new Date(`${this.data.value_date} ${this.data.value_start}:00`.replace(/-/g, '/')).getTime() / 1000;
     gql.mutate({
       mutation: `mutation {
@@ -249,11 +253,17 @@ Page({
       }`
     }).then((res) => {
       console.log('success', res);
+      this.setData({
+        isDisabled: false
+      })
       wx.navigateTo({
         url: '/pages/h2-order/prompt-success/prompt-success',
       })
     }).catch((error) => {
       console.log('fail', error);
+      this.setData({
+        isDisabled: false
+      })
     });
   }
 
