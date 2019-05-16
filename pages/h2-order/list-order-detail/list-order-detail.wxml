@@ -64,10 +64,10 @@
     <wux-row>
       <wux-white-space body-style="height:30rpx" />
       <view class='search n200'>
-        <input confirm-type='search' placeholder='输入姓名或昵称搜索' placeholder-class='search_p' bindconfirm='doSearch' bindinput='doSearch' />
+        <input confirm-type='search' placeholder='输入姓名搜索' placeholder-class='search_p' bindconfirm='doSearch' bindinput='doSearch' />
         <view class='arrow'>
           <view class='arrow_box'>
-            <wux-icon type='md-arrow-dropdown' />
+            <!-- <wux-icon type='md-arrow-dropdown' /> -->
           </view>
         </view>
       </view>
@@ -81,7 +81,7 @@
         <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/avatar.png' />
+              <image class='list_card_avatar' src='{{avatar}}' />
               <view class='list_card_name'>{{item.name}}</view>
               <view>{{item.gender===1?'男':'女'}}</view>
             </view>
@@ -105,7 +105,7 @@
         <view class='list' bindtap='goPtInfo' data-item='{{item}}'>
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/avatar.png' />
+              <image class='list_card_avatar' src='{{avatar}}' />
               <view class='list_card_name'>{{item.name}}</view>
               <view>{{item.gender===1?'男':'女'}}</view>
             </view>
@@ -116,7 +116,7 @@
               </view>
             </view>
           </view>
-          <wux-white-space body-style="height:30rpx" wx:if="{{index!==pt_list_confirm.length-1}}" />
+          <wux-white-space body-style="height:30rpx" wx:if="{{index!==pt_list_ing.length-1}}" />
         </view>
       </wux-row>
     </block>
@@ -127,7 +127,7 @@
           <wux-white-space body-style="height:30rpx" />
           <view class='list_card'>
             <view class='list_card_l'>
-              <image class='list_card_avatar' src='/images/avatar.png' />
+              <image class='list_card_avatar' src='{{avatar}}' />
               <view class='list_card_name'>{{item.name}}</view>
               <view>{{item.gender===1?'男':'女'}}</view>
             </view>

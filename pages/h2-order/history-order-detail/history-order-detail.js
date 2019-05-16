@@ -10,7 +10,8 @@ Page({
   data: {
     orderid: 'default',
     order: '',
-    pt_list: []
+    pt_list: [],
+    avatar: ''
   },
 
   /**
@@ -82,13 +83,16 @@ Page({
       }`
     }).then((res) => {
       console.log('success', res);
+      let avatar = util.selectAvatar(res.search[0].originorder.occupation)
       util.formatItemOrigin(res.search[0])
       if (res.search[0].modifiedorder.length > 0) {
         util.formatItemOrigin(res.search[0])
       }
+
       this.setData({
         order: res.search[0],
-        pt_list: res.search[0].pt
+        pt_list: res.search[0].pt,
+        avatar: avatar
       })
     }).catch((error) => {
       console.log('fail', error);

@@ -34,7 +34,7 @@
       <wux-divider position="right" text="待接单" wx:if="{{index===0}}" />
     </view>
     <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
-      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/avatar.png">
+      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="{{item.avatar}}">
         <view slot="body">
           <view class='n200'>用工时间</view>
           <wux-white-space body-style="height:10rpx" />
@@ -79,7 +79,7 @@
       <wux-divider position="right" text="招募中" wx:if="{{index===0}}" />
     </view>
     <view bindtap='goDetail' data-orderid='{{item.originorder.orderid}}'>
-      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="/images/avatar.png">
+      <wux-card title="{{item.originorder.occupation}}" extra="{{item.adviser.companyname}} {{item.adviser.name}}" bordered="{{false}}" thumb="{{item.avatar}}">
         <view slot="body">
           <view class='n200'>用工时间</view>
           <wux-white-space body-style="height:10rpx" />

@@ -3,7 +3,7 @@
   <view class='page_bd'>
 
     <view class='card_info'>
-      <image src='/images/avatar.png'></image>
+      <image src='/images/avatar-default.jpeg'></image>
       <view class='card_info_text'>
         <view>
           <text class='card_info_text_l'>{{pt_info.name}}</text>
