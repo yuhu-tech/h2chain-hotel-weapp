@@ -1,16 +1,19 @@
-// pages/h2Account/home/home.js
-
+// pages/h2-account/setting/setting.js
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function(options) {
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -23,12 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (typeof this.getTabBar === 'function' &&
-      this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 2
-      })
-    }
+
   },
 
   /**
@@ -64,6 +62,20 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  doLogout: function() {
+    wx.showModal({
+      title: '确认退出账号？',
+      success: res => {
+        if (res.confirm) {
+          wx.clearStorage()
+          wx.reLaunch({
+            url: '/pages/h2-account/login/login',
+          })
+        }
+      }
+    })
   }
 
 })

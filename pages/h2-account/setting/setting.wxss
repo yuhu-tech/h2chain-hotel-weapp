@@ -1,4 +1,4 @@
-/* pages/h2Account/home/home.wxss */
+/* pages/h2-account/setting/setting.wxss */
 
 .info_card {
   display: flex;

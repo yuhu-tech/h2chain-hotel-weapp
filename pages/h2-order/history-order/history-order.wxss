@@ -45,12 +45,6 @@ image {
   margin-left: 30rpx;
 }
 
-.foot {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
 .wux-divider--text-right:before {
   width: 100% !important;
 }
@@ -65,6 +59,10 @@ image {
   padding: 0 !important;
 }
 
+.wux-card__hd {
+  justify-content: space-between;
+}
+
 .wux-card__bd {
   border-bottom: solid 1rpx rgba(217, 217, 217, 0.5);
   padding: 30rpx !important;
@@ -72,4 +70,27 @@ image {
 
 .wux-card__ft {
   padding: 30rpx !important;
+}
+
+.wux-card__content {
+  font-size: 32rpx;
+  display: flex;
+  flex: none !important;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.wux-card__extra {
+  flex: none !important;
+}
+
+.foot {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.n200 {
+  font-size: 28rpx;
 }

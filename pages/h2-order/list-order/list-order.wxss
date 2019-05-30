@@ -1,12 +1,11 @@
 /* pages/h2-order/list-order/list-order.wxss */
 
-.page {
-  padding: 30rpx 30rpx 150rpx;
-  height: 100%;
+page {
   background-color: #f8f8f8;
 }
 
 .page {
+  padding: 30rpx 30rpx 150rpx;
   height: 100%;
 }
 

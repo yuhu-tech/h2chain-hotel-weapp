@@ -1,16 +1,21 @@
-// pages/h2Account/home/home.js
+// pages/h2-account/person-info/person-info.js
+var gql = require('../../../utils/graphql.js')
 
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    qlInfo: '',
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function(options) {
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -23,12 +28,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (typeof this.getTabBar === 'function' &&
-      this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 2
+    gql.query({
+      query: `query {
+        me{
+          profile{
+            phone
+            name
+            occupation
+          }
+        }
+      }`
+    }).then((res) => {
+      console.log('success', res);
+      this.setData({
+        qlInfo: res.me.profile
       })
-    }
+    }).catch((error) => {
+      console.log('fail', error);
+      wx.showToast({
+        title: '加载失败',
+        icon: 'none'
+      })
+    });
   },
 
   /**
@@ -65,5 +86,4 @@ Page({
   onShareAppMessage: function() {
 
   }
-
 })

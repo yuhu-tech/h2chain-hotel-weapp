@@ -78,6 +78,7 @@ Page({
             height
             weight
             workhours
+            hash
           }
         }
       }`
@@ -164,6 +165,7 @@ Page({
             height
             weight
             workhours
+            hash
           }
         }
       }`

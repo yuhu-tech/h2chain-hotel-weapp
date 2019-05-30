@@ -37,13 +37,16 @@
             </view>
 
           </view>
+
           <view class='foot' slot="footer">
+            <view class='n200'>{{item.countyet}}份三方合同已存证上链</view>
             <view class='y200 link'>订单详情
               <view class='link_arrow'>
                 <wux-icon type="ios-arrow-forward" size='20' />
               </view>
             </view>
           </view>
+
         </wux-card>
       </view>
     </block>

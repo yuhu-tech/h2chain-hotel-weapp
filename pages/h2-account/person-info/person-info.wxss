@@ -1,4 +1,4 @@
-/* pages/h2Account/home/home.wxss */
+/* pages/h2-account/person-info/person-info.wxss */
 
 .info_card {
   display: flex;
@@ -6,7 +6,6 @@
   align-items: center;
   height: 200rpx;
   padding: 30rpx;
-  /* background-color: #f8f8f8; */
   box-sizing: border-box;
 }
 
@@ -19,11 +18,6 @@
 
 .wux-whitespace {
   background-color: #f8f8f8;
-}
-
-.logout {
-  text-align: center;
-  margin-top: 20rpx;
 }
 
 .wux-cell-group__bd {
@@ -44,8 +38,4 @@
 
 .wux-cell__thumb {
   margin-right: 20rpx !important;
-}
-
-.bd_btm {
-  border-bottom: solid 1rpx #f8f8f8;
 }
