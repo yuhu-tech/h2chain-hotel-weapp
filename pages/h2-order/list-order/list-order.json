@@ -4,7 +4,9 @@
     "wux-icon": "wux-weapp/icon",
     "wux-row": "wux-weapp/row",
     "wux-card": "wux-weapp/card",
-    "wux-divider": "wux-weapp/divider"
+    "wux-divider": "wux-weapp/divider",
+    "guide": "/components/guide/guide"
   },
-  "navigationBarTitleText": "订单列表"
+  "navigationBarTitleText": "订单列表",
+  "enablePullDownRefresh": true
 }

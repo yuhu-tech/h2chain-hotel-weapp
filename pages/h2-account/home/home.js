@@ -1,15 +1,11 @@
 // pages/h2Account/home/home.js
-var gql = require('../../../utils/graphql.js')
 
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-    userInfo: {},
-    qlInfo: '',
-  },
+  data: {},
 
   /**
    * 生命周期函数--监听页面加载
@@ -33,35 +29,6 @@ Page({
         selected: 2
       })
     }
-    wx.getUserInfo({
-      success: res => {
-        this.setData({
-          userInfo: res.userInfo
-        })
-      }
-    })
-    gql.query({
-      query: `query {
-        me{
-          profile{
-            phone
-            name
-            occupation
-          }
-        }
-      }`
-    }).then((res) => {
-      console.log('success', res);
-      this.setData({
-        qlInfo: res.me.profile
-      })
-    }).catch((error) => {
-      console.log('fail', error);
-      wx.showToast({
-        title: '加载失败',
-        icon: 'none'
-      })
-    });
   },
 
   /**
@@ -82,7 +49,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-   
+
   },
 
   /**
@@ -97,20 +64,6 @@ Page({
    */
   onShareAppMessage: function() {
 
-  },
-
-  doLogout: function() {
-    wx.showModal({
-      title: '确认退出账号？',
-      success: res => {
-        if (res.confirm) {
-          wx.clearStorage()
-          wx.reLaunch({
-            url: '/pages/h2-account/login/login',
-          })
-        }
-      }
-    })
   }
 
 })

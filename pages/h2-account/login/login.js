@@ -12,6 +12,7 @@ Page({
   data: {
     email: '',
     password: '',
+    isDisabled: false
   },
 
   /**
@@ -116,10 +117,19 @@ Page({
       $inToptip().show('请输入您的密码')
       return
     }
-    this.isAuth()
+    /* this.isAuth() */
+    wx.login({
+      success: res => {
+        this.doLogin(res.code)
+      },
+      fail: err => {
+        $inToptip().show('登录失败')
+        console.log('login fail', err)
+      }
+    })
   },
 
-  isAuth: function() {
+  /* isAuth: function() {
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -133,21 +143,21 @@ Page({
         }
       }
     })
-  },
+  }, */
 
-  showModal: function(e) {
+  /* showModal: function(e) {
     this.setData({
       modalName: 'show'
     })
-  },
+  }, */
 
-  hideModal: function(e) {
+  /* hideModal: function(e) {
     this.setData({
       modalName: null
     })
-  },
+  }, */
 
-  bindGetUserInfo: function(e) {
+  /* bindGetUserInfo: function(e) {
     wx.login({
       success: (res_login) => {
         console.log(res_login)
@@ -159,13 +169,16 @@ Page({
         })
       }
     })
-  },
+  }, */
 
   doLogin: function(code) {
     wx.showToast({
       title: '正在登录',
       icon: 'loading',
       duration: 10000
+    })
+    this.setData({
+      isDisabled: true
     })
     gql.mutate({
       mutation: `mutation {
@@ -183,6 +196,9 @@ Page({
         title: '登录成功',
         icon: 'success'
       })
+      this.setData({
+        isDisabled: false
+      })
       try {
         wx.setStorageSync('email', this.data.email)
         wx.setStorageSync('token', res.login.token)
@@ -195,6 +211,9 @@ Page({
         console.log(err)
       }
     }).catch((error) => {
+      this.setData({
+        isDisabled: false
+      })
       if (error.errors[0].message === 'Invalid password') {
         $inToptip().show('密码不正确！')
         wx.hideToast()

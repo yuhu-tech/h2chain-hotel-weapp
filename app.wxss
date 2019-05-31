@@ -20,6 +20,10 @@ page {
   color: #c8c8c8;
 }
 
+.n96 {
+  color: #969696;
+}
+
 .r200 {
   color: #ff482c;
 }
@@ -76,4 +80,22 @@ page {
 
 .input-placeholder {
   color: #c8c8c8;
+}
+
+.form_button {
+  height: 70rpx;
+  font-size: 30rpx;
+  background-color: #d7a646 !important;
+  color: #fff !important;
+  margin: 0;
+}
+
+.form_button_hover {
+  background-color: #cca100 !important;
+  border-color: #cca100;
+  color: #fff !important;
+}
+
+.form_button::after {
+  border-color: #d7a646;
 }

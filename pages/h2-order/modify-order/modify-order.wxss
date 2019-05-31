@@ -86,10 +86,6 @@ image {
   font-size: 10pt;
 }
 
-.wux-button {
-  width: 500rpx;
-}
-
 /* modify */
 
 .disabled_label {
@@ -109,4 +105,8 @@ image {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.form_button {
+  width: 500rpx;
 }

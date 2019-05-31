@@ -3,7 +3,7 @@
  */
 
 const host = 'https://h2chain.yuhu.tech/apiv1/hotel/';
-/* const host = 'http://192.168.1.13:4000'; */
+/* const host = 'http://192.168.1.36:4000'; */
 
 var config = {
 

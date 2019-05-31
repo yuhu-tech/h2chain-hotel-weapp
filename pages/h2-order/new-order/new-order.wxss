@@ -91,6 +91,6 @@ image {
   justify-content: center;
 }
 
-.wux-button {
+.form_button {
   width: 500rpx;
 }

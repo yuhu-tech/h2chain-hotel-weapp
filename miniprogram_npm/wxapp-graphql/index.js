@@ -85,7 +85,7 @@ module.exports = (function() {
               wx.showToast({
                 title: '获取中',
                 icon: 'loading',
-                duration: 5000
+                duration: 10000
               })
               wx.request({
                 url: obj.url,
@@ -99,8 +99,6 @@ module.exports = (function() {
                   wx.hideToast()
                 },
                 complete: function(res) {
-                  console.log('query')
-                  console.log(res)
                   if (res.errMsg.indexOf('timeout') > -1) {
                     wx.showToast({
                       title: '请求超时',
@@ -118,7 +116,7 @@ module.exports = (function() {
               wx.showToast({
                 title: '获取中',
                 icon: 'loading',
-                duration: 5000
+                duration: 10000
               })
               wx.request({
                 url: obj.url,
@@ -132,8 +130,6 @@ module.exports = (function() {
                   wx.hideToast()
                 },
                 complete: function(res) {
-                  console.log('mutate')
-                  console.log(res)
                   if (res.errMsg.indexOf('timeout') > -1) {
                     wx.showToast({
                       title: '请求超时',

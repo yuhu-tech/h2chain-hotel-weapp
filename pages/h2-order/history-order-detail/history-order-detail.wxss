@@ -86,11 +86,28 @@ input {
 }
 
 .list_card {
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+
+.list_top {
   padding: 20rpx 30rpx;
   display: flex;
   justify-content: space-between;
-  background-color: #fff;
-  border-radius: 10rpx;
+}
+
+.list_btm {
+  padding: 20rpx 30rpx;
+  border-top: solid 1rpx #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.list_btm text {
+  width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .list_card_avatar {
@@ -106,12 +123,13 @@ input {
 
 .list_card_name {
   width: 120rpx;
-  margin-left: 50rpx;
+  margin-left: 20rpx;
 }
 
 .link_arrow {
   margin-top: 5rpx;
   margin-left: 20rpx;
+  color: #d7a646;
 }
 
 /* modified */
@@ -119,6 +137,7 @@ input {
 .modified {
   color: #c8c8c8;
   position: relative;
+  padding: 10rpx 0;
 }
 
 .none_tip {

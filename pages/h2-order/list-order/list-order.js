@@ -76,6 +76,7 @@ Page({
       let tempIng = []
       if (res.search.length > 0) {
         for (let item of res.search) {
+          item.avatar = util.selectAvatar(item.originorder.occupation)
           util.formatItemOrigin(item)
           if (item.modifiedorder.length > 0) {
             util.formatItemModify(item)
@@ -162,6 +163,7 @@ Page({
       let tempIng = []
       if (res.search.length > 0) {
         for (let item of res.search) {
+          item.avatar = util.selectAvatar(item.originorder.occupation)
           util.formatItemOrigin(item)
           if (item.modifiedorder.length > 0) {
             util.formatItemModify(item)
@@ -196,12 +198,12 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    wx.showLoading({
+    /* wx.showLoading({
       title: '加载中',
     })
     setTimeout(() => {
       wx.hideLoading();
-    }, 2000)
+    }, 2000) */
   },
 
   /**
@@ -256,6 +258,7 @@ Page({
       let tempIng = []
       if (res.search.length > 0) {
         for (let item of res.search) {
+          item.avatar = util.selectAvatar(item.originorder.occupation)
           util.formatItemOrigin(item)
           if (item.modifiedorder.length > 0) {
             util.formatItemModify(item)

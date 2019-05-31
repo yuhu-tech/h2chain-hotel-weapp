@@ -10,8 +10,10 @@ Page({
   data: {
     orderid: 'default',
     order_info: '',
-    pt_list_confirm: [],
-    pt_list_notConfirm: []
+    pt_list: [],
+    pt_list_wait: [],
+    pt_list_ing: [],
+    avatar: ''
   },
 
   /**
@@ -88,6 +90,7 @@ Page({
       let temp_list = []
       let temp_ing = []
       let temp_wait = []
+      let avatar = util.selectAvatar(res.search[0].originorder.occupation)
       util.formatItemOrigin(res.search[0])
       if (res.search[0].modifiedorder && res.search[0].modifiedorder.length > 0) {
         util.formatItemModify(res.search[0])
@@ -113,7 +116,8 @@ Page({
         order_info: res.search[0],
         pt_list: temp_list,
         pt_list_wait: temp_wait,
-        pt_list_ing: temp_ing
+        pt_list_ing: temp_ing,
+        avatar: avatar
       })
     }).catch((error) => {
       console.log('fail', error);
@@ -238,7 +242,7 @@ Page({
     })
   },
 
-  doCloseOrder: function() {
+  doCloseOrder: function(e) {
     wx.showModal({
       title: '提示',
       content: '是否要关闭订单？',
@@ -247,6 +251,7 @@ Page({
           gql.mutate({
             mutation: `mutation{
               closeorder(
+                formid:"${e.detail.formId}"
                 orderid:"${this.data.order_info.originorder.orderid}"
               ){
                 orderid

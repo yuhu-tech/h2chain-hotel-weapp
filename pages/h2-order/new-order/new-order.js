@@ -38,7 +38,8 @@ Page({
     pt_count_female: 0,
     isSex: 0,
     consultant_list: [],
-    consultant: ''
+    consultant: '',
+    isDisabled: false
   },
 
   /**
@@ -120,7 +121,6 @@ Page({
 
   /* 招募职位 */
   bindPickerChangeJob(e) {
-    console.log()
     this.setData({
       value_job: this.data.jobArray[e.detail.value]
     })
@@ -146,7 +146,6 @@ Page({
     this.setData({
       value_duration: e.detail.value
     })
-    console.log(e.detail.value)
   },
 
   /* 性别自定义 */
@@ -190,17 +189,14 @@ Page({
   },
 
   /* 发布 */
-  doPublish: function() {
+  doPublish: function(e) {
     /* 计算用人人数 */
     let count = 0
     if (Number(this.data.isSex) === 0) {
-      console.log('noSex')
       count = Number(this.data.pt_count)
     } else {
-      console.log('Sex')
       count = Number(this.data.pt_count_male) + Number(this.data.pt_count_female)
     }
-    console.log(count)
     /* 非空检查 */
     if (!this.data.value_job) {
       $inToptip().show('请选择招募职位')
@@ -233,10 +229,14 @@ Page({
       $inToptip().show('请选择顾问')
       return
     }
+    this.setData({
+      isDisabled: true
+    })
     var timestamp = new Date(`${this.data.value_date} ${this.data.value_start}:00`.replace(/-/g, '/')).getTime() / 1000;
     gql.mutate({
       mutation: `mutation {
         createorder(
+          formid:"${e.detail.formId}"
           createorder: {
             occupation: "${this.data.value_job}",
             datetime: ${timestamp},
@@ -253,11 +253,17 @@ Page({
       }`
     }).then((res) => {
       console.log('success', res);
+      this.setData({
+        isDisabled: false
+      })
       wx.navigateTo({
         url: '/pages/h2-order/prompt-success/prompt-success',
       })
     }).catch((error) => {
       console.log('fail', error);
+      this.setData({
+        isDisabled: false
+      })
     });
   }
 

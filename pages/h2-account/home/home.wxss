@@ -6,7 +6,7 @@
   align-items: center;
   height: 200rpx;
   padding: 30rpx;
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
   box-sizing: border-box;
 }
 
@@ -14,6 +14,7 @@
   height: 140rpx;
   width: 140rpx;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .wux-whitespace {
